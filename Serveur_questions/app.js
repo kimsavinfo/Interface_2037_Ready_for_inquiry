@@ -5,5 +5,6 @@ var express = require('express'),
 
 
 require('./controllers/expert')(app);
+require('./controllers/client')(app);
 
 server.listen(5000);
