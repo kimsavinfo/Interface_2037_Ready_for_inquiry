@@ -1,0 +1,11 @@
+{
+  "name": "Serveur_questions",
+  "version": "0.1.0",
+  "author": "Kim Savaroche, Amandine Palas, Julien Riffard <julien.riffard40@gmail.com>",
+  "description": "Serveur de questions",
+  "dependencies": {
+    "body-parser": "^1.10.0",
+    "express": "^4.10.5",
+    "unit.js": "^1.1.2"
+  }
+}
