@@ -1,0 +1,12 @@
+{
+	"name": "Serveur_questions",
+	"version": "0.1.0",
+	"author": "Samuel Drode <samuel.drode@gmail.com>, Louis Ortolan, Amandine Pallas <amandine.pallau@gmail.com>, Julien Riffard <julien.riffard40@gmail.com>, Kim Savaroche <kimsavinfo@gmail.com>",
+	"description": "Serveur de questions",
+	"dependencies": {
+		"body-parser": "^1.10.0",
+		"ejs": "^1.0.0",
+		"express": "^4.10.5",
+		"unit.js": "^1.1.2"
+	}
+}
