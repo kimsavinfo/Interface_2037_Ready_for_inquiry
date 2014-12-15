@@ -9,12 +9,16 @@
   },
   "dependencies": {
     "body-parser": "^1.10.0",
+    "coveralls": "^2.7.1",
     "ejs": "^1.0.0",
     "express": "^4.10.5",
-    "unit.js": "^1.1.2",
-    "mocha": "^2.0.1"
+    "istanbul": "~0.2.4",
+    "mocha": "^2.0.1",
+    "mocha-lcov-reporter": "0.0.1",
+    "unit.js": "^1.1.2"
   },
   "scripts": {
-    "test": "mocha tests --recursive"
+    "test": "mocha tests --recursive",
+    "upload-to-coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   }
 }
