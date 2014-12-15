@@ -8,5 +8,9 @@
 		"ejs": "^1.0.0",
 		"express": "^4.10.5",
 		"unit.js": "^1.1.2"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://githubcom/kimsavinfo/Interface_2037_Ready_for_inquiry.git"
 	}
 }
