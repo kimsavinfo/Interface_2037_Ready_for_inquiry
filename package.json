@@ -2,6 +2,7 @@
   "name": "Interface_2037_Ready_for_inquiry",
   "version": "0.1.0",
   "author": "Samuel Drode <samuel.drode@gmail.com>, Louis Ortolan, Amandine Pallas <amandine.pallau@gmail.com>, Julien Riffard <julien.riffard40@gmail.com>, Kim Savaroche <kimsavinfo@gmail.com>",
+  "owner": "kimsavinfo",
   "description": "Serveur de questions",
   "repository": {
     "type": "git",
@@ -20,6 +21,6 @@
   },
   "scripts": {
     "test": "mocha tests --recursive",
-    "coveralls" : "istanbul cover _mocha -- tests/ -R spec"
+    "coveralls" : "istanbul cover _mocha -- tests/ -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   }
 }
