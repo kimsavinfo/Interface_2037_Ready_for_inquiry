@@ -9,12 +9,14 @@ module.exports = function(app, host){
 	modelQuestion.model = ModelQuestionDb;
 
 	app.get('/client/questions', function(req, res){
+		res.status(200);
 		res.render(rootDirectory + '/views/addQuestion.ejs');
 	})
 
 	.get('/client/questions/:objectId', function(req, res){
 		var objectId = req.params.objectId;
 		modelQuestion.get(objectId, function(question){
+			res.status(200);
 			res.render(rootDirectory + '/views/question.ejs', question);
 		});
 	})
@@ -22,6 +24,8 @@ module.exports = function(app, host){
 	.post('/client/questions', function(req, res){
 		oneQuestion = new ModelQuestionDb({label: req.body.label});
 		modelQuestion.add(oneQuestion, function(){
+			res.status(201);
+			res.send();
 			console.log('Question ajoutée avec succès !')
 		});
 	})
