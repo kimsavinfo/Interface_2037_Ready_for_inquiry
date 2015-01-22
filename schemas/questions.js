@@ -1,15 +1,12 @@
 var mongoose = require('mongoose');
 
-var Schema = mongoose.Schema,
-ObjectId = Schema.ObjectId;
+var Schema = mongoose.Schema;
 
 var schemaQuestion = new Schema({
-  	label : String,
-  	answer : String,
-  	publicationDate : Date,
-  	state : String
+  	label : { type: String, default: '' },
+  	answer : { type: String, default: '' },
+  	publicationDate : { type: Number, default: new Date().getTime() },
+  	state : { type: String, default: '' }
 });
 
-Question = mongoose.model('Questions', schemaQuestion);
-
-exports.modelQuestion = Question;
+mongoose.model('Question', schemaQuestion);
