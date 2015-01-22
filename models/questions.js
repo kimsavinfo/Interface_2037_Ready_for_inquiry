@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 
+var host;
+module.exports.host;
 module.exports = {
 
 	getLastQuestion: function(callback){
@@ -7,7 +9,7 @@ module.exports = {
 	},
 
 	add: function(oneQuestion, callback){
-		mongoose.connect('mongodb://localhost/interface2037', function(err) {
+		mongoose.connect(this.host, function(err) {
 	  		if (err) { throw err; }
 	  		oneQuestion.save(function (err) {
 		  		if (err) { throw err; }

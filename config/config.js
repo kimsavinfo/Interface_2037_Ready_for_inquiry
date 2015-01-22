@@ -1,10 +1,6 @@
-module.Exports = {
+module.exports = {
 	db : {
-		host		: 'localhost',
-		user		: 'username',
-		password	: 'password',
-		database	: 'database',
-		port		: 8889
+		host : 'mongodb://localhost/interface2037'
 	},
 
 	environnement : 'Developpement'

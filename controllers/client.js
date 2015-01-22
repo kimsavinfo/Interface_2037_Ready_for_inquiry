@@ -1,9 +1,10 @@
-module.exports = function(app){
+module.exports = function(app, host){
 	var rootDirectory = __dirname + '/..',
 		mongoose = require('mongoose'),
 		schemaQuestion = require(rootDirectory+'/schemas/questions'),
 		modelQuestion = require(rootDirectory+'/models/questions');
 
+	modelQuestion.host = host;
 	var Question = mongoose.model('Question');
 
 	app.get('/client/questions', function(req, res){

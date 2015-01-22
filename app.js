@@ -6,7 +6,7 @@ var express = require('express'),
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-require('./controllers/expert')(app);
-require('./controllers/client')(app);
+require('./controllers/expert')(app, config.db.host);
+require('./controllers/client')(app, config.db.host);
 
 server.listen(5000);
