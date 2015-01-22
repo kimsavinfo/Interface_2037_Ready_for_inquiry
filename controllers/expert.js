@@ -1,4 +1,4 @@
-module.exports = function(app){
+module.exports = function(app, mongoose){
 
 	var rootDirectory = __dirname + '/..', 
 		modelQuestions = require(rootDirectory+'/models/questions');
