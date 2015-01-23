@@ -32,6 +32,18 @@ module.exports = {
 		  		mongoose.connection.close();
 		  	});
 		});
+	},
+
+	update: function(id, answer, status, callback){
+		_this = this;
+		mongoose.connect(this.host, function(err) {
+	  		if (err) { throw err; }
+	  		_this.model.findByIdAndUpdate({ _id: id }, {answer: answer, status: status}, {multi: false}, function(err, question){
+		  		if (err) { throw err; }
+		  		callback(question);
+		  		mongoose.connection.close();
+		  	});
+		});
 	}
 
 }
