@@ -9,4 +9,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 require('./controllers/expert')(app, config.db.host);
 require('./controllers/client')(app, config.db.host);
 
+app.use(function (req, res) {
+	res.status(404);
+   	res.render(__dirname+'/views/statics/error.ejs');
+});
+
 server.listen(5000);

@@ -14,24 +14,24 @@ module.exports = {
 	add: function(oneQuestion, callback){
 		mongoose.connect(this.host, function(err) {
 	  		if (err) { throw err; }
-	  		oneQuestion.save(function (err) {
-		  		if (err) { throw err; }
-		  		callback();
-		  		mongoose.connection.close();
-		  	});
-		});
-	},
-
-	get: function(objectId, callback){
-		_this = this;
-		mongoose.connect(this.host, function(err) {
-	  		if (err) { throw err; }
-	  		_this.model.findById(objectId, function(err, question){
+	  		oneQuestion.save(function (err, question) {
 		  		if (err) { throw err; }
 		  		callback(question);
 		  		mongoose.connection.close();
 		  	});
 		});
 	},
+
+	get: function(id, callback){
+		_this = this;
+		mongoose.connect(this.host, function(err) {
+	  		if (err) { throw err; }
+	  		_this.model.findById(id, function(err, question){
+		  		if (err) { throw err; }
+		  		callback(question);
+		  		mongoose.connection.close();
+		  	});
+		});
+	}
 
 }

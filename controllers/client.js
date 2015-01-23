@@ -13,9 +13,9 @@ module.exports = function(app, host){
 		res.render(rootDirectory + '/views/addQuestion.ejs');
 	})
 
-	.get('/client/questions/:objectId', function(req, res){
-		var objectId = req.params.objectId;
-		modelQuestion.get(objectId, function(question){
+	.get('/client/questions/:id', function(req, res){
+		var id = req.params.id;
+		modelQuestion.get(id, function(question){
 			res.status(200);
 			res.render(rootDirectory + '/views/question.ejs', question);
 		});
@@ -23,10 +23,10 @@ module.exports = function(app, host){
 
 	.post('/client/questions', function(req, res){
 		oneQuestion = new ModelQuestionDb({label: req.body.label});
-		modelQuestion.add(oneQuestion, function(){
+		modelQuestion.add(oneQuestion, function(question){
 			res.status(201);
 			res.send();
-			console.log('Question ajoutée avec succès !')
+			console.log('Question ajoutée avec succès ! id :'+question.id);
 		});
 	})
 };
