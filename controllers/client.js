@@ -25,8 +25,9 @@ module.exports = function(app, host){
 		oneQuestion = new ModelQuestionDb({label: req.body.label});
 		modelQuestion.add(oneQuestion, function(question){
 			res.status(201);
-			res.send();
-			console.log('Question ajoutée avec succès ! id :'+question.id);
+			req.method = 'get';
+			res.send({redirect: '/client/questions/'+question.id});
+			// console.log('Question ajoutée avec succès ! id :'+question.id);
 		});
 	})
 };
