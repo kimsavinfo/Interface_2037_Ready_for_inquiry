@@ -17,6 +17,10 @@ module.exports = function(app, host){
 		var id = req.params.id;
 		modelQuestion.get(id, function(question){
 			res.status(200);
+			if (!res.getHeader('Cache-Control')) 
+			{
+				res.setHeader('Cache-Control', 'public, max-age=31557600000');
+			}
 			res.render(rootDirectory + '/views/question.ejs', question);
 		});
 	})
@@ -25,9 +29,7 @@ module.exports = function(app, host){
 		oneQuestion = new ModelQuestionDb({label: req.body.label});
 		modelQuestion.add(oneQuestion, function(question){
 			res.status(201);
-			req.method = 'get';
 			res.send({redirect: '/client/questions/'+question.id});
-			// console.log('Question ajoutée avec succès ! id :'+question.id);
 		});
 	})
 };
