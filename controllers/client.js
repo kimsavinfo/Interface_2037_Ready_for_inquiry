@@ -32,4 +32,21 @@ module.exports = function(app, host){
 			res.send({redirect: '/client/questions/'+question.id});
 		});
 	})
+
+	.get('/client/questions/:id/bot', function(req, res){
+		var id = req.params.id;
+		modelQuestion.get(id, function(question){
+			res.status(200);
+			if (!res.getHeader('Cache-Control')) 
+			{
+				res.setHeader('Cache-Control', 'public, max-age=31557600000');
+			}
+
+			while(true)
+			{
+				res.render(rootDirectory + '/views/question.ejs', question);
+				console.log("BOT GET question "+id);
+			}
+		});
+	})
 };
