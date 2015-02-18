@@ -11,11 +11,16 @@ module.exports = {
 		_this = this;
 		mongoose.connect(this.host, function(err) {
 			if (err) { throw err; }
-			_this.model.findOne({status:'non-traité'}, function(err, question){
-				if (err) { throw err; }
-				callback(question);
-				mongoose.connection.close();
-			}).sort({status : -1 });
+			_this.model.findOneAndUpdate(
+				{status:'non-traité'}, 
+				{status:"en-traitement"}, 
+				{sort:'publicationDate'},
+				function(err, question){
+					if (err) { throw err; }
+					mongoose.connection.close();
+					console.log(question);
+					callback(question);
+			});
 	 	});
 	},
 

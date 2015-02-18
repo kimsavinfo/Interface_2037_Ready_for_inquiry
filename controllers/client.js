@@ -30,6 +30,7 @@ module.exports = function(app, host){
 		modelQuestion.add(oneQuestion, function(question){
 			res.status(201);
 			res.location('/client/questions/' + question.id);
+			res.redirect('/client/questions/' + question.id);
 		});
 	})
 
