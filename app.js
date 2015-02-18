@@ -13,6 +13,7 @@ app.use(methodOverride(function(req, res){
 	    return method
 	}
 }));
+app.use('/assets', express.static(__dirname+'/assets'));
 
 require('./controllers/expert')(app, config.db.host);
 require('./controllers/client')(app, config.db.host);
