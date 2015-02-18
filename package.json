@@ -22,6 +22,7 @@
     "istanbul": "^0.3.5"
   },
   "scripts": {
+    "start": "supervisor app.js",
     "test": "mocha tests --recursive",
     "coveralls": "istanbul cover _mocha -- tests/ -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   }

@@ -24,8 +24,8 @@ module.exports = {
 	  		if (err) { throw err; }
 	  		oneQuestion.save(function (err, question) {
 		  		if (err) { throw err; }
-		  		callback(question);
 		  		mongoose.connection.close();
+		  		callback(question);
 		  	});
 		});
 	},
@@ -36,8 +36,8 @@ module.exports = {
 			if (err) { throw err; }
 			_this.model.findById(id, function(err, question){
 				if (err) { throw err; }
-				callback(question);
 				mongoose.connection.close();
+				callback(question);
 			});
 		});
 	},
@@ -48,10 +48,22 @@ module.exports = {
 	  		if (err) { throw err; }
 	  		_this.model.findByIdAndUpdate({ _id: id }, {answer: answer, status: status}, {multi: false}, function(err, question){
 		  		if (err) { throw err; }
-		  		callback(question);
 		  		mongoose.connection.close();
+		  		callback(question);
 		  	});
+		});
+	},
+
+	delete: function(id, callback){
+		_this = this;
+		mongoose.connect(this.host, function(err) {
+			if (err) { throw err; }
+			_this.model.remove({ _id: id}, function(err){
+				if (err) { throw err; }
+				mongoose.connection.close();
+				callback();
+			});
 		});
 	}
 
-}
+};

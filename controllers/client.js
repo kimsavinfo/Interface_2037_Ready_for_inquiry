@@ -29,7 +29,16 @@ module.exports = function(app, host){
 		oneQuestion = new ModelQuestionDb({label: req.body.label});
 		modelQuestion.add(oneQuestion, function(question){
 			res.status(201);
-			res.send({redirect: '/client/questions/'+question.id});
+			res.location('/client/questions/' + question.id);
+		});
+	})
+
+	.delete('/client/questions/:id', function(req, res){
+		var id = req.params.id;
+		modelQuestion.delete(id, function(){
+			res.status(204);
+			res.location('/client/questions/');
+			res.send();
 		});
 	})
 
@@ -48,5 +57,5 @@ module.exports = function(app, host){
 				console.log("BOT GET question "+id);
 			}
 		});
-	})
+	});
 };
