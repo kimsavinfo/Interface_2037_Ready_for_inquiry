@@ -8,7 +8,15 @@ module.exports.model;
 module.exports = {
 
 	getLastQuestion: function(callback){
-		callback({id: 1, libelle: 'Quel temps fait-il aujourd\'hui ?'});
+		_this = this;
+		mongoose.connect(this.host, function(err) {
+			if (err) { throw err; }
+			_this.model.findOne({status:'non-traité'}, function(err, question){
+				if (err) { throw err; }
+				callback(question);
+				mongoose.connection.close();
+			}).sort({status : -1 });
+	 	});
 	},
 
 	add: function(oneQuestion, callback){
@@ -25,12 +33,12 @@ module.exports = {
 	get: function(id, callback){
 		_this = this;
 		mongoose.connect(this.host, function(err) {
-	  		if (err) { throw err; }
-	  		_this.model.findById(id, function(err, question){
-		  		if (err) { throw err; }
-		  		callback(question);
-		  		mongoose.connection.close();
-		  	});
+			if (err) { throw err; }
+			_this.model.findById(id, function(err, question){
+				if (err) { throw err; }
+				callback(question);
+				mongoose.connection.close();
+			});
 		});
 	},
 

@@ -9,8 +9,11 @@ module.exports = function(app, host){
 	modelQuestion.model = ModelQuestionDb;
 
 	app.get('/expert/questions', function(req, res){
-		res.status(200);
-		res.render(rootDirectory + '/views/addQuestion.ejs');
+		modelQuestion.getLastQuestion(function(question){
+			res.status(303);
+			res.location('/expert/questions/' + question._id)
+			res.render(rootDirectory + '/views/answerQuestion.ejs', question);
+		});
 	})
 
 	.get('/expert/questions/:id', function(req, res){
