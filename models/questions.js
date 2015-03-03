@@ -47,6 +47,18 @@ module.exports = {
 		});
 	},
 
+	getUserQuestions: function(id, callback){
+		_this = this;
+		mongoose.connect(this.host, function(err) {
+			if (err) { throw err; }
+			_this.model.findById(id, function(err, question){
+				if (err) { throw err; }
+				mongoose.connection.close();
+				callback(question);
+			});
+		});
+	},
+
 	update: function(id, answer, status, callback){
 		_this = this;
 		mongoose.connect(this.host, function(err) {
