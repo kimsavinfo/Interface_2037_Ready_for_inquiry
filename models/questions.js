@@ -47,14 +47,16 @@ module.exports = {
 		});
 	},
 
-	getUserQuestions: function(id, callback){
+	getQuestionsUser: function(user_id, callback){
 		_this = this;
 		mongoose.connect(this.host, function(err) {
 			if (err) { throw err; }
-			_this.model.findById(id, function(err, question){
+			_this.model.find(
+				{user_id: user_id}, 
+				function(err, userQuestions){
 				if (err) { throw err; }
 				mongoose.connection.close();
-				callback(question);
+				callback(userQuestions);
 			});
 		});
 	},

@@ -45,16 +45,6 @@ module.exports = function(app, host){
 		});
 	})
 
-	.post('/client', function(req, res){
-		var emailClean = htmlEntities(req.body.inputEmail);
-		var passwordClean = htmlEntities(req.body.inputPassword);
-		oneUser = new ModelUserDb({email: emailClean, password: passwordClean});
-		modelUser.get(oneUser, function(user){
-			res.status(201);
-			res.redirect('/client/'+user.id+'/questions');
-		});
-	})
-
 	.get('/client', function(req, res){
 		res.status(200);
 		res.render(rootDirectory + '/views/signIn.ejs');
@@ -63,54 +53,67 @@ module.exports = function(app, host){
 	.post('/client', function(req, res){
 		var emailClean = htmlEntities(req.body.inputEmail);
 		var passwordClean = htmlEntities(req.body.inputPassword);
-		oneUser = new ModelUserDb({email: emailClean, password: passwordClean});
-		modelUser.add(oneUser, function(user){
-			res.status(201);
-			res.redirect('/client/'+user.id+'/questions');
+		modelUser.getUserConnection(emailClean, passwordClean, function(user){
+
+			if (!user) 
+			{ 
+				oneUser = new ModelUserDb({email: emailClean, password: passwordClean});
+				modelUser.add(oneUser, function(user){
+					res.status(201);
+					res.redirect('/client/'+user.id+'/questions');
+				});
+			}
+			else
+			{
+				res.status(300);
+				res.redirect('/client/'+user._id+'/questions');
+			}
 		});
 	})
 
 	// ==== QUESTIONS
 
-	.get('/client/:id/questions', function(req, res){
+	.get('/client/:user_id/questions', function(req, res){
+		var user_id = req.params.user_id;
+		
 		res.status(200);
-		res.render(rootDirectory + '/views/addQuestion.ejs');
+		modelQuestion.getQuestionsUser(user_id, function(userQuestions){
+			res.render(rootDirectory + '/views/addQuestion.ejs', {user_id: user_id, questions: userQuestions} );
+		});
 	})
 
-	// .get('/client/questions', function(req, res){
-	// 	res.status(200);
-	// 	res.render(rootDirectory + '/views/addQuestion.ejs');
-	// })
+	.post('/client/questions', function(req, res){
+		var labelClean = htmlEntities(req.body.label);
+		var user_id = req.body.user_id;
+		oneQuestion = new ModelQuestionDb({user_id: user_id ,label: labelClean});
+		modelQuestion.add(oneQuestion, function(question){
+			res.status(201);
+			res.location('/client/'+user_id+'/questions');
+			res.redirect('/client/'+user_id+'/questions');
+		});
+	})
 
-	// .get('/client/questions/:id', function(req, res){
-	// 	var id = req.params.id;
-	// 	modelQuestion.get(id, function(question){
-	// 		res.status(200);
-	// 		if (!res.getHeader('Cache-Control')) 
-	// 		{
-	// 			res.setHeader('Cache-Control', 'public, max-age=31557600000');
-	// 		}
-	// 		res.render(rootDirectory + '/views/question.ejs', question);
-	// 	});
-	// })
+	.get('/client/:user_id/questions/:id', function(req, res){
+		var id = req.params.id;
+		modelQuestion.get(id, function(question){
+			res.status(200);
+			if (!res.getHeader('Cache-Control')) 
+			{
+				res.setHeader('Cache-Control', 'public, max-age=31557600000');
+			}
+			res.render(rootDirectory + '/views/question.ejs', question);
+		});
+	})
 
-	// .post('/client/questions', function(req, res){
-	// 	oneQuestion = new ModelQuestionDb({label: req.body.label});
-	// 	modelQuestion.add(oneQuestion, function(question){
-	// 		res.status(201);
-	// 		res.location('/client/questions/' + question.id);
-	// 		res.redirect('/client/questions/' + question.id);
-	// 	});
-	// })
-
-	// .delete('/client/questions/:id', function(req, res){
-	// 	var id = req.params.id;
-	// 	modelQuestion.delete(id, function(){
-	// 		res.status(204);
-	// 		res.location('/client/questions/');
-	// 		res.send();
-	// 	});
-	// })
+	.delete('/client/questions/:id', function(req, res){
+		var id = req.params.id;
+		var user_id = req.params.user_id;
+		modelQuestion.delete(id, function(){
+			res.status(204);
+			res.location('/client/'+user_id+'/questions');
+			res.redirect('/client/'+user_id+'/questions');
+		});
+	})
 
 	// .get('/client/questions/:id/bot', function(req, res){
 	// 	var id = req.params.id;
