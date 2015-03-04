@@ -71,6 +71,7 @@ module.exports = function(app, host){
 		modelUser.get(user_id, function(user){
 			if (!user) 
 			{ 
+				console.log('REDIREC');
 				res.status(412);
 				res.redirect('/');
 			}
