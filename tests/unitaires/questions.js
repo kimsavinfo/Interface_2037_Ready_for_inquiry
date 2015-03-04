@@ -3,24 +3,50 @@ var rootDirectory = __dirname + '/../..',
 	mongoose = require('mongoose'),
 	config = require(rootDirectory+'/config/config'),
 	schemaQuestion = require(rootDirectory+'/schemas/questions'),
-	modelQuestion = require(rootDirectory+'/models/questions');
+	modelQuestion = require(rootDirectory+'/models/questions'),
+	schemaUser = require(rootDirectory+'/schemas/users'),
+	modelUser = require(rootDirectory+'/models/users'),
+	libString = require(rootDirectory+'/models/libString');
 
 	var ModelQuestionDb = mongoose.model('Question');
 		modelQuestion.host = config.db.host;
 		modelQuestion.model = ModelQuestionDb;
+		ModelUserDb = mongoose.model('User');
+		modelUser.host = config.db.host;
+		modelUser.model = ModelUserDb;
+	var user;
 
 describe.only('modelQuestions', function(){
 
 	var question = new ModelQuestionDb({label: 'Question pour test unitaire'});
 
-	it('should create a question', function(done){
+	before('S assurer que testUser@gmail.com soit dans la base', function(done){
+		var emailClean = "testUser@gmail.com";
+		var passwordClean = "test";
+		
+		modelUser.getUserConnection(emailClean, passwordClean, function(userFound){
+			user = userFound;
+			if (!userFound) 
+			{
+				var oneUser = new ModelUserDb({email: emailClean, password: passwordClean});
+				modelUser.add(oneUser, function(userCreated){
+					user = userCreated;
+					done();
+				});
+			}
+			else
+			{
+				done();
+			}			
+		});
+	});
 
+	it('should create a question', function(done){
 		modelQuestion.add(question, function(questionTest){
 			test.value(questionTest.id).isString();
 			question = questionTest;
 			done();
 		});
-
 	});
 
 	it('should get the question', function(done){
@@ -33,7 +59,6 @@ describe.only('modelQuestions', function(){
 			test.value(question.status).isEqualTo(questionTest.status);
 			done();
 		});
-
 	});
 
 	it('should update the question', function(done){
@@ -48,7 +73,6 @@ describe.only('modelQuestions', function(){
 				done();
 			});
 		});
-
 	});
 
 	it('should delete the question', function(done){
