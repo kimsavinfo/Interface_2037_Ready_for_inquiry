@@ -1,8 +1,16 @@
-<%- include partials/header.ejs %>
+<% include ../partials/header.ejs %>
 
-<h2 class="form-signin-heading">
-	Would you like to sign in ?
-</h2>
+
+<div class="row">
+	<div class="col-md-8">
+		<h2 class="form-signin-heading">
+			Would you like to sign in ?
+		</h2>
+	</div>
+	<div class="col-md-4 text-right">
+		<a href="/" class="btn btn-lg btn-warning">Log in</a>
+	</div>
+</div>
 
 <form class="form-signin" action='/client' method='POST'>
 
@@ -23,4 +31,4 @@
 	<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 </form>
 
-<%- include partials/footer.ejs %>
+<% include ../partials/footer.ejs %>

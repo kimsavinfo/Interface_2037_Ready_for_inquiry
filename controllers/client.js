@@ -24,7 +24,7 @@ module.exports = function(app, host){
 
 	app.get('/', function(req, res){
 		res.status(200);
-		res.render(rootDirectory + '/views/connection.ejs');
+		res.render(rootDirectory + '/views/client/connection.ejs');
 	})
 
 	.post('/', function(req, res){
@@ -47,7 +47,7 @@ module.exports = function(app, host){
 
 	.get('/client', function(req, res){
 		res.status(200);
-		res.render(rootDirectory + '/views/signIn.ejs');
+		res.render(rootDirectory + '/views/client/signIn.ejs');
 	})
 
 	.post('/client', function(req, res){
@@ -78,7 +78,7 @@ module.exports = function(app, host){
 		
 		res.status(200);
 		modelQuestion.getQuestionsUser(user_id, function(userQuestions){
-			res.render(rootDirectory + '/views/addQuestion.ejs', {user_id: user_id, questions: userQuestions} );
+			res.render(rootDirectory + '/views/client/questions.ejs', {user_id: user_id, questions: userQuestions} );
 		});
 	})
 
@@ -101,7 +101,7 @@ module.exports = function(app, host){
 			{
 				res.setHeader('Cache-Control', 'public, max-age=31557600000');
 			}
-			res.render(rootDirectory + '/views/question.ejs', question);
+			res.render(rootDirectory + '/views/client/question.ejs', question);
 		});
 	})
 
@@ -113,7 +113,7 @@ module.exports = function(app, host){
 			res.location('/client/'+user_id+'/questions');
 			res.redirect('/client/'+user_id+'/questions');
 		});
-	})
+	});
 
 	// .get('/client/questions/:id/bot', function(req, res){
 	// 	var id = req.params.id;
@@ -126,7 +126,7 @@ module.exports = function(app, host){
 
 	// 		while(true)
 	// 		{
-	// 			res.render(rootDirectory + '/views/question.ejs', question);
+	// 			res.render(rootDirectory + '/views/client/question.ejs', question);
 	// 			console.log("BOT GET question "+id);
 	// 		}
 	// 	});

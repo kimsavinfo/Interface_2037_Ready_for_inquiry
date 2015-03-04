@@ -15,8 +15,8 @@ module.exports = function(app, host){
 				res.location('/expert/questions/' + question._id);
 				res.send();
 			} else {
-				res.status(404);
-				res.render(rootDirectory+'/views/statics/error.ejs');
+				res.status(200);
+				res.render(rootDirectory+'/views/expert/noQuestion.ejs');
 			}
 		});
 	})
@@ -29,12 +29,12 @@ module.exports = function(app, host){
 			if(question.status != 'traité'){
 				modelQuestion.update(id, answer, 'traité', function(question){
 					res.status(200);
-					res.render(rootDirectory + '/views/question.ejs', question);
+					res.render(rootDirectory + '/views/expert/question.ejs', question);
 					console.log('Question répondue avec succès ! id :'+question.id);
 				});
 			} else {
 				res.status(303);
-				res.location('/client/' + question.user_id + '/questions/' + id);
+				res.location('/expert/questions/' + id);
 				res.send();
 			}
 		});
@@ -43,13 +43,11 @@ module.exports = function(app, host){
 	.get('/expert/questions/:id', function(req, res){
 		var id = req.params.id;
 		modelQuestion.get(id, function(question){
+			res.status(200);
 			if(question.status != 'traité'){
-				res.status(200);
-				res.render(rootDirectory + '/views/answerQuestion.ejs', question);
+				res.render(rootDirectory + '/views/expert/answer.ejs', question);
 			} else {
-				res.status(303);
-				res.location('/client/' + question.user_id + '/questions/' + id);
-				res.send();
+				res.render(rootDirectory + '/views/expert/question.ejs', question);
 			}
 		});
 	})
