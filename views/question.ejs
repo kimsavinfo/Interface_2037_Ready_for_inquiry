@@ -1,5 +1,15 @@
 <%- include partials/header.ejs %>
 
+<div class="row">
+	<div class="col-md-4">
+		<a href="/client/<%=user_id%>/questions" class="btn btn-default">
+			<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+		</a>
+	</div>
+	<div class="col-md-8">
+	</div>
+</div>
+
 <h3>libelle : <%= label %>
 <% if(status == 'traité'){ %>
 	réponse : <%= answer %>

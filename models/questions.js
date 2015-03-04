@@ -47,6 +47,20 @@ module.exports = {
 		});
 	},
 
+	getQuestionsUser: function(user_id, callback){
+		_this = this;
+		mongoose.connect(this.host, function(err) {
+			if (err) { throw err; }
+			_this.model.find(
+				{user_id: user_id}, 
+				function(err, userQuestions){
+				if (err) { throw err; }
+				mongoose.connection.close();
+				callback(userQuestions);
+			});
+		});
+	},
+
 	update: function(id, answer, status, callback){
 		_this = this;
 		mongoose.connect(this.host, function(err) {
