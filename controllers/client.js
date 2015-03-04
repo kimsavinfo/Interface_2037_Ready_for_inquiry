@@ -107,7 +107,7 @@ module.exports = function(app, host){
 
 	.delete('/client/questions/:id', function(req, res){
 		var id = req.params.id;
-		var user_id = req.params.user_id;
+		var user_id = req.body.user_id;
 		modelQuestion.delete(id, function(){
 			res.status(204);
 			res.location('/client/'+user_id+'/questions');

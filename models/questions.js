@@ -1,9 +1,7 @@
 var mongoose = require('mongoose');
 
-var host;
-var model;
-module.exports.host;
-module.exports.model;
+var host = module.exports.host;
+var model = module.exports.model;
 
 module.exports = {
 
@@ -18,7 +16,6 @@ module.exports = {
 				function(err, question){
 					if (err) { throw err; }
 					mongoose.connection.close();
-					console.log(question);
 					callback(question);
 			});
 	 	});
@@ -84,5 +81,4 @@ module.exports = {
 			});
 		});
 	}
-
 };
