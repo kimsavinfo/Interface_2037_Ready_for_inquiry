@@ -23,7 +23,6 @@ module.exports = {
 		mongoose.connect(this.host, function(err) {
 			if (err) { throw err; }
 			_this.model.findById(id, function(err, user){
-				if (err) { throw err; }
 				mongoose.connection.close();
 				callback(user);
 			});
