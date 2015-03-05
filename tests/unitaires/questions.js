@@ -47,6 +47,18 @@ describe.only('modelQuestions', function(){
 		});
 	});
 
+	// Expert doesn't have any question to answer to
+	it('should show to the Expert there is no question to answer to', function(done){
+		modelQuestion.getLastQuestion(function(lastQuestion){
+			if(lastQuestion){
+				test.value(1).isEqualTo(0);
+			} else {
+				test.value(1).isEqualTo(1);
+			}
+			done();
+		});
+	});
+
 	// User ask a question
 	it('should create a question', function(done){
 		modelQuestion.add(question, function(questionTest){
