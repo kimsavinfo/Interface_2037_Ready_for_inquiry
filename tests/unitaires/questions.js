@@ -19,6 +19,8 @@ var rootDirectory = __dirname + '/../..',
 describe.only('modelQuestions', function(){
 
 	var question = new ModelQuestionDb({label: 'Question pour test unitaire'});
+	var newStatus = 'traité';
+	var newAnswer = 'reponse d\'une question pour test unitaire';
 
 	before('S assurer que testUser@gmail.com soit dans la base', function(done){
 		var emailClean = "testUser@gmail.com";
@@ -41,6 +43,7 @@ describe.only('modelQuestions', function(){
 		});
 	});
 
+	// User ask a question
 	it('should create a question', function(done){
 		modelQuestion.add(question, function(questionTest){
 			test.value(questionTest.id).isString();
@@ -49,23 +52,20 @@ describe.only('modelQuestions', function(){
 		});
 	});
 
+	// User consult the question, the answer is not available
 	it('should get the question', function(done){
-
 		modelQuestion.get(question.id, function(questionTest){
 			test.value(question.id).isEqualTo(questionTest.id);
 			test.value(question.label).isEqualTo(questionTest.label);
 			test.value(question.publicationDate).isEqualTo(questionTest.publicationDate);
-			test.value(question.answer).isEqualTo(questionTest.answer);
-			test.value(question.status).isEqualTo(questionTest.status);
+			test.value(questionTest.answer).isEqualTo('');
+			test.value(questionTest.status).isEqualTo('non-traité');
 			done();
 		});
 	});
 
+	// Expert answer the question
 	it('should update the question', function(done){
-
-		newStatus = 'traité';
-		newAnswer = 'reponse d\'une question pour test unitaire';
-
 		modelQuestion.update(question.id, newAnswer, newStatus, function(questionUpdated){
 			modelQuestion.get(questionUpdated.id, function(questionTest){
 				test.value(newAnswer).isEqualTo(questionTest.answer);
@@ -75,6 +75,16 @@ describe.only('modelQuestions', function(){
 		});
 	});
 
+	// User consult the question, the answer is available
+	it('should show the available answer', function(done){
+		modelQuestion.get(question.id, function(questionTest){
+			test.value(questionTest.answer).isEqualTo(newAnswer);
+			test.value(questionTest.status).isEqualTo(newStatus);
+			done();
+		});
+	});
+
+	// User delete a question
 	it('should delete the question', function(done){
 		modelQuestion.delete(question.id, function(){
 			modelQuestion.get(question.id, function(questionTest){
