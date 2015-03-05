@@ -13,9 +13,7 @@ module.exports = function(app, host){
 		ModelUserDb = mongoose.model('User');
 		modelUser.host = host;
 		modelUser.model = ModelUserDb;
-
-	// ==== CLIENT
-
+		
 	app.get('/', function(req, res){
 		res.status(200);
 		res.render(rootDirectory + '/views/client/connection.ejs');
@@ -63,91 +61,61 @@ module.exports = function(app, host){
 		});
 	})
 
-	// ==== QUESTIONS
-
-	.get('/client/:user_id/questions', function(req, res){
+	.use('/client/:user_id/questions', function (req, res, next) {
 		var user_id = req.params.user_id;
 		modelUser.get(user_id, function(user){
 			if (!user) 
 			{ 
-				console.log('REDIREC');
 				res.status(412);
 				res.redirect('/');
 			}
 			else
 			{
-				res.status(200);
-				modelQuestion.getQuestionsUser(user_id, function(userQuestions){
-					res.render(rootDirectory + '/views/client/questions.ejs', {user_id: user_id, questions: userQuestions} );
-				});
+				next();
 			}
+		});
+	})
+
+	.get('/client/:user_id/questions', function(req, res){
+		var user_id = req.params.user_id;
+
+		res.status(200);
+		modelQuestion.getQuestionsUser(user_id, function(userQuestions){
+			res.render(rootDirectory + '/views/client/questions.ejs', {user_id: user_id, questions: userQuestions} );
 		});
 	})
 
 	.post('/client/:user_id/questions', function(req, res){
 		var labelClean = libString.htmlEntities(req.body.label);
 		var user_id = req.body.user_id;
-
-		modelUser.get(user_id, function(user){
-			if (!user) 
-			{ 
-				res.status(412);
-				res.redirect('/');
-			}
-			else
-			{
-				oneQuestion = new ModelQuestionDb({user_id: user_id ,label: labelClean});
-				modelQuestion.add(oneQuestion, function(question){
-					res.status(201);
-					res.location('/client/'+user_id+'/questions');
-					res.redirect('/client/'+user_id+'/questions');
-				});
-			}
+		var oneQuestion = new ModelQuestionDb({user_id: user_id ,label: labelClean});
+		modelQuestion.add(oneQuestion, function(question){
+			res.status(201);
+			res.location('/client/'+user_id+'/questions');
+			res.redirect('/client/'+user_id+'/questions');
 		});
 	})
 
 	.get('/client/:user_id/questions/:id', function(req, res){
 		var id = req.params.id;
 		var user_id = req.params.user_id;
-
-		modelUser.get(user_id, function(user){
-			if (!user) 
+		modelQuestion.get(id, function(question){
+			res.status(200);
+			if (!res.getHeader('Cache-Control')) 
 			{
-				res.status(412);
-				res.redirect('/');
+				res.setHeader('Cache-Control', 'public, max-age=31557600000');
 			}
-			else
-			{
-				modelQuestion.get(id, function(question){
-					res.status(200);
-					if (!res.getHeader('Cache-Control')) 
-					{
-						res.setHeader('Cache-Control', 'public, max-age=31557600000');
-					}
-					res.render(rootDirectory + '/views/client/question.ejs', question);
-				});
-			}
+			res.render(rootDirectory + '/views/client/question.ejs', question);
 		});
 	})
 
 	.delete('/client/:user_id/questions/:id', function(req, res){
 		var id = req.params.id;
 		var user_id = req.body.user_id;
-
-		modelUser.get(user_id, function(user){
-			if (!user) 
-			{ 
-				res.status(412);
-				res.redirect('/');
-			}
-			else
-			{
-				modelQuestion.delete(id, function(){
-					res.status(204);
-					res.location('/client/'+user_id+'/questions');
-					res.redirect('/client/'+user_id+'/questions');
-				});
-			}
+		modelQuestion.delete(id, function(){
+			res.status(204);
+			res.location('/client/'+user_id+'/questions');
+			res.redirect('/client/'+user_id+'/questions');
 		});
 	});
 
