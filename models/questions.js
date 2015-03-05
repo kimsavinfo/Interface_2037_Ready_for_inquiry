@@ -80,5 +80,17 @@ module.exports = {
 				callback();
 			});
 		});
+	},
+
+	deleteAll: function(callback){
+		_this = this;
+		mongoose.connect(this.host, function(err) {
+			if (err) { throw err; }
+			_this.model.remove({}, function(err){
+				if (err) { throw err; }
+				mongoose.connection.close();
+				callback();
+			});
+		});
 	}
 };

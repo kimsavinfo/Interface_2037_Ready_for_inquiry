@@ -1,7 +1,7 @@
 var rootDirectory = __dirname + '/../..',
 	test = require('unit.js'),
 	mongoose = require('mongoose'),
-	config = require(rootDirectory+'/config/config'),
+	config = require(rootDirectory+'/config/configTest'),
 	schemaQuestion = require(rootDirectory+'/schemas/questions'),
 	modelQuestion = require(rootDirectory+'/models/questions'),
 	schemaUser = require(rootDirectory+'/schemas/users'),
@@ -23,23 +23,27 @@ describe.only('modelQuestions', function(){
 	var newAnswer = 'reponse d\'une question pour test unitaire';
 
 	before('S assurer que testUser@gmail.com soit dans la base', function(done){
-		var emailClean = "testUser@gmail.com";
-		var passwordClean = "test";
-		
-		modelUser.getUserConnection(emailClean, passwordClean, function(userFound){
-			user = userFound;
-			if (!userFound) 
-			{
-				var oneUser = new ModelUserDb({email: emailClean, password: passwordClean});
-				modelUser.add(oneUser, function(userCreated){
-					user = userCreated;
+		// Delete all questions
+		modelQuestion.deleteAll(function(){
+			console.log("BEFORE : All questions have been removed");
+			// Create user test
+			var emailClean = "testUser@gmail.com";
+			var passwordClean = "test";
+			modelUser.getUserConnection(emailClean, passwordClean, function(userFound){
+				user = userFound;
+				if (!userFound) 
+				{
+					var oneUser = new ModelUserDb({email: emailClean, password: passwordClean});
+					modelUser.add(oneUser, function(userCreated){
+						user = userCreated;
+						done();
+					});
+				}
+				else
+				{
 					done();
-				});
-			}
-			else
-			{
-				done();
-			}			
+				}			
+			});
 		});
 	});
 
@@ -65,6 +69,7 @@ describe.only('modelQuestions', function(){
 	});
 
 	// Expert answer the question
+	// It's the same method with the "Je passe" : expert doesn't know the answer
 	it('should update the question', function(done){
 		modelQuestion.update(question.id, newAnswer, newStatus, function(questionUpdated){
 			modelQuestion.get(questionUpdated.id, function(questionTest){
