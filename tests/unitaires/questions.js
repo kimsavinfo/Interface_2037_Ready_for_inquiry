@@ -1,7 +1,7 @@
 var rootDirectory = __dirname + '/../..',
 	test = require('unit.js'),
 	mongoose = require('mongoose'),
-	config = require(rootDirectory+'/config/configTest'),
+	config = require(rootDirectory+'/config/config'),
 	schemaQuestion = require(rootDirectory+'/schemas/questions'),
 	modelQuestion = require(rootDirectory+'/models/questions'),
 	schemaUser = require(rootDirectory+'/schemas/users'),
@@ -9,7 +9,7 @@ var rootDirectory = __dirname + '/../..',
 	libString = require(rootDirectory+'/models/libString');
 
 	var ModelQuestionDb = mongoose.model('Question');
-		modelQuestion.host = config.db.host;
+		modelQuestion.host = config.dbTest.host;
 		modelQuestion.model = ModelQuestionDb;
 		ModelUserDb = mongoose.model('User');
 		modelUser.host = config.db.host;
