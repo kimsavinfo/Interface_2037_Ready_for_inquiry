@@ -1,9 +1,9 @@
 {
-  "name": "Interface_2037_Ready_for_inquiry",
+  "name": "Server_Interface_2037_Ready_for_inquiry",
   "version": "0.1.0",
   "author": "Samuel Drode <samuel.drode@gmail.com>, Louis Ortolan, Amandine Pallas <amandine.pallau@gmail.com>, Julien Riffard <julien.riffard40@gmail.com>, Kim Savaroche <kimsavinfo@gmail.com>",
   "owner": "kimsavinfo",
-  "description": "Serveur de questions",
+  "description": "Serveur de l'Interface_2037_Ready_for_inquiry",
   "repository": {
     "type": "git",
     "url": "git://githubcom/kimsavinfo/Interface_2037_Ready_for_inquiry.git"

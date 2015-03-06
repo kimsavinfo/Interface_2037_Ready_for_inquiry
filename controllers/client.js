@@ -3,16 +3,12 @@ module.exports = function(app, host){
 		mongoose = require('mongoose'),
 		schemaQuestion = require(rootDirectory+'/schemas/questions'),
 		modelQuestion = require(rootDirectory+'/models/questions'),
-		schemaUser = require(rootDirectory+'/schemas/users'),
-		modelUser = require(rootDirectory+'/models/users'),
 		libString = require(rootDirectory+'/models/libString');
 
 	var ModelQuestionDb = mongoose.model('Question');
 		modelQuestion.host = host;
 		modelQuestion.model = ModelQuestionDb;
-		ModelUserDb = mongoose.model('User');
-		modelUser.host = host;
-		modelUser.model = ModelUserDb;
+
 		
 
 	

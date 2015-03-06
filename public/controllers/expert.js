@@ -1,13 +1,8 @@
 module.exports = function(app, host){
 	var rootDirectory = __dirname + '/..',
 		mongoose = require('mongoose'),
-		request = require('request'),
-		schemaQuestion = require(rootDirectory+'/schemas/questions'),
-		modelQuestion = require(rootDirectory+'/models/questions');
+		request = require('request');
 
-	var ModelQuestionDb = mongoose.model('Question');
-	modelQuestion.host = host;
-	modelQuestion.model = ModelQuestionDb;
 
 	app.get('/expert/questions', function(req, res){
 		request('http://127.0.0.1:5000/expert/questions', function (error, response, body) {
