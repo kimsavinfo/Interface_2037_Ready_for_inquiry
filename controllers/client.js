@@ -9,79 +9,19 @@ module.exports = function(app, host){
 
 	var ModelQuestionDb = mongoose.model('Question');
 		modelQuestion.host = host;
-		modelQuestion.model = ModelQuestionDb
+		modelQuestion.model = ModelQuestionDb;
 		ModelUserDb = mongoose.model('User');
 		modelUser.host = host;
 		modelUser.model = ModelUserDb;
 		
-	app.get('/', function(req, res){
-		res.status(200);
-		res.render(rootDirectory + '/views/client/connection.ejs');
-	})
 
-	.post('/', function(req, res){
-		var emailClean = libString.htmlEntities(req.body.inputEmail);
-		var passwordClean = libString.htmlEntities(req.body.inputPassword);
-		modelUser.getUserConnection(emailClean, passwordClean, function(user){
-			if (!user) 
-			{ 
-				res.status(412);
-				res.redirect('/');
-			}
-			else
-			{
-				res.status(200);
-				res.redirect('/client/'+user._id+'/questions');
-			}
-		});
-	})
-
-	.get('/client', function(req, res){
-		res.status(200);
-		res.render(rootDirectory + '/views/client/signIn.ejs');
-	})
-
-	.post('/client', function(req, res){
-		var emailClean = libString.htmlEntities(req.body.inputEmail);
-		var passwordClean = libString.htmlEntities(req.body.inputPassword);
-		modelUser.getUserConnection(emailClean, passwordClean, function(user){
-			if (!user) 
-			{ 
-				oneUser = new ModelUserDb({email: emailClean, password: passwordClean});
-				modelUser.add(oneUser, function(user){
-					res.status(201);
-					res.redirect('/client/'+user.id+'/questions');
-				});
-			}
-			else
-			{
-				res.status(300);
-				res.redirect('/client/'+user._id+'/questions');
-			}
-		});
-	})
-
-	.use('/client/:user_id/questions', function (req, res, next) {
-		var user_id = req.params.user_id;
-		modelUser.get(user_id, function(user){
-			if (!user) 
-			{ 
-				res.status(412);
-				res.redirect('/');
-			}
-			else
-			{
-				next();
-			}
-		});
-	})
-
-	.get('/client/:user_id/questions', function(req, res){
+	
+	app.get('/client/:user_id/questions', function(req, res){
 		var user_id = req.params.user_id;
 
-		res.status(200);
+		
 		modelQuestion.getQuestionsUser(user_id, function(userQuestions){
-			res.render(rootDirectory + '/views/client/questions.ejs', {user_id: user_id, questions: userQuestions} );
+			res.status(200).json({questions : userQuestions, user_id : user_id});
 		});
 	})
 
@@ -100,12 +40,11 @@ module.exports = function(app, host){
 		var id = req.params.id;
 		var user_id = req.params.user_id;
 		modelQuestion.get(id, function(question){
-			res.status(200);
 			if (!res.getHeader('Cache-Control')) 
 			{
 				res.setHeader('Cache-Control', 'public, max-age=31557600000');
 			}
-			res.render(rootDirectory + '/views/client/question.ejs', question);
+			res.status(200).json(question);
 		});
 	})
 

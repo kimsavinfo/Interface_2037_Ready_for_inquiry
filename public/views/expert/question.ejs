@@ -1,0 +1,25 @@
+<% include ../partials/header.ejs %>
+
+<div class="row">
+	<div class="col-md-8">
+	<% if(label) { %>
+		<h3>libelle : <%= label %></h3>
+		<h3>
+		<% if(status == 'traité'){ %>
+			réponse : <%= answer %>
+		<% } %> 
+		</h3>
+		</div>
+		<div class="col-md-4 text-right">
+			<a href="/expert/questions" class="btn btn-lg btn-primary">
+				Prochaine question
+				<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+			</a>
+		</div>
+	<% } else { %>
+		<h3>Aucune question sans réponse</h3>
+		</div>
+	<% } %>
+</div>
+
+<% include ../partials/footer.ejs %>

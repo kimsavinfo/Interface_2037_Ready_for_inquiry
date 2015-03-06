@@ -1,0 +1,33 @@
+<% include ../partials/header.ejs %>
+
+<div class="row">
+	<div class="col-md-8">
+		<h2 class="form-signin-heading">
+			Log in
+		</h2>
+	</div>
+	<div class="col-md-4 text-right">
+		<a href="/client" class="btn btn-lg btn-warning">Sign in</a>
+	</div>
+</div>
+
+<form class="form-signin" action='/' method='POST'>
+
+	<label for="inputEmail" class="sr-only">
+		Email address
+	</label>
+	<input type="email" id="inputEmail" name="inputEmail" 
+		class="form-control" placeholder="Email address" required autofocus>
+		
+	<label for="inputPassword" class="sr-only">
+		Password
+	</label>
+	<input type="password" id="inputPassword" name="inputPassword" 
+		class="form-control" placeholder="Password" required>
+
+	<hr/>
+	
+	<button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+</form>
+
+<% include ../partials/footer.ejs %>
