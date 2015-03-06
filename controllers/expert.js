@@ -11,11 +11,9 @@ module.exports = function(app, host){
 	app.get('/expert/questions', function(req, res){
 		modelQuestion.getLastQuestion(function(question){
 			if(question){
-				//res.status(303);
-				//res.location('/expert/questions/' + question._id);
-				res.writeHead(303, { 
-                    'Location': '/expert/questions/' + question._id
-                 });                    
+				res.status(303);
+				res.location('/expert/questions/' + question._id);
+				//res.redirect(303, '/expert/questions/' + question._id);                    
 				res.end();
 			} else {
 				res.status(200);
@@ -26,7 +24,6 @@ module.exports = function(app, host){
 	})
 
 	.put('/expert/questions/:id', function(req, res){
-		console.log("eh oui !");
 		var id = req.params.id,
 			answer = req.body.answer;
 
