@@ -20,12 +20,27 @@ module.exports = function(app, host){
 		  		}
 
 		  		res.render(rootDirectory+'/views/expert/answer.ejs', data);
-		  	} /* else if 303
-		  		res.status(303);
-				res.location('/expert/questions/' + question._id);
-				res.send();
-			*/
+		  	}
 		});
+	})
+
+	.put('/expert/questions/:id', function(req, res){
+		var id = req.params.id,
+			answer = req.body.answer;
+
+		var dataToBeSend = {id: id, answer: answer, _method: 'put'};
+		var options = {
+		  	method: 'post',
+		  	form: dataToBeSend,
+		  	url: "http://127.0.0.1:5000/expert/questions/"+id
+		};
+
+		request(options, function (error, response, body) {
+  			if (!error && response.statusCode == 200) {
+  				var data = JSON.parse(body);
+				res.render(rootDirectory + '/views/expert/question.ejs', data);
+  			}
+  		});
 	})
 
 	.get('/expert/questions/:id', function(req, res){

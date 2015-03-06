@@ -19,7 +19,6 @@ module.exports = function(app, host){
 	app.get('/client/:user_id/questions', function(req, res){
 		var user_id = req.params.user_id;
 
-		
 		modelQuestion.getQuestionsUser(user_id, function(userQuestions){
 			res.status(200).json({questions : userQuestions, user_id : user_id});
 		});
@@ -30,9 +29,10 @@ module.exports = function(app, host){
 		var user_id = req.body.user_id;
 		var oneQuestion = new ModelQuestionDb({user_id: user_id ,label: labelClean});
 		modelQuestion.add(oneQuestion, function(question){
-			res.status(201);
-			res.location('/client/'+user_id+'/questions');
-			res.redirect('/client/'+user_id+'/questions');
+			//res.status(201);
+			//res.location('/client/'+user_id+'/questions');
+			res.redirect(201, '/client/'+user_id+'/questions');
+			//res.send();
 		});
 	})
 
@@ -52,9 +52,7 @@ module.exports = function(app, host){
 		var id = req.params.id;
 		var user_id = req.body.user_id;
 		modelQuestion.delete(id, function(){
-			res.status(204);
-			res.location('/client/'+user_id+'/questions');
-			res.redirect('/client/'+user_id+'/questions');
+			res.status(204).send();
 		});
 	});
 

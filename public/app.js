@@ -2,11 +2,19 @@ var express = require('express'),
 	app = express(),
 	server = require('http').createServer(app),
 	bodyParser = require('body-parser'),
+	cookieParser = require('cookie-parser'),
+    expressSession = require('express-session'),
 	methodOverride = require('method-override'),
 	config = require('./config/config');
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(methodOverride(function(req, res){
+app.use(cookieParser())
+.use(expressSession({
+	secret: 'W€b-$€rv1c€/',
+	saveUninitialized: true,
+	resave: true
+	}))
+.use(bodyParser.urlencoded({extended: true}))
+.use(methodOverride(function(req, res){
 	if (req.body && typeof req.body === 'object' && '_method' in req.body) {
 	    var method = req.body._method;
 	    delete req.body._method;
