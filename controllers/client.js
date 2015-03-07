@@ -9,30 +9,24 @@ module.exports = function(app, host){
 		modelQuestion.host = host;
 		modelQuestion.model = ModelQuestionDb;
 
-		
-
-	
-	app.get('/client/:user_id/questions', function(req, res){
+	app.get('/client/questions', function(req, res){
 		var user_id = req.params.user_id;
 
-		modelQuestion.getQuestionsUser(user_id, function(userQuestions){
-			res.status(200).json({questions : userQuestions, user_id : user_id});
+		modelQuestion.getLastQuestions(function(questions){
+			res.status(200).json({questions : questions});
 		});
 	})
 
-	.post('/client/:user_id/questions', function(req, res){
+	.post('/client/questions', function(req, res){
 		var labelClean = libString.htmlEntities(req.body.label);
 		var user_id = req.body.user_id;
 		var oneQuestion = new ModelQuestionDb({user_id: user_id ,label: labelClean});
 		modelQuestion.add(oneQuestion, function(question){
-			//res.status(201);
-			//res.location('/client/'+user_id+'/questions');
-			res.redirect(201, '/client/'+user_id+'/questions');
-			//res.send();
+			res.redirect(201, '/client/questions');
 		});
 	})
 
-	.get('/client/:user_id/questions/:id', function(req, res){
+	.get('/client/questions/:id', function(req, res){
 		var id = req.params.id;
 		var user_id = req.params.user_id;
 		modelQuestion.get(id, function(question){
@@ -44,9 +38,8 @@ module.exports = function(app, host){
 		});
 	})
 
-	.delete('/client/:user_id/questions/:id', function(req, res){
+	.delete('/client/questions/:id', function(req, res){
 		var id = req.params.id;
-		var user_id = req.body.user_id;
 		modelQuestion.delete(id, function(){
 			res.status(204).send();
 		});
