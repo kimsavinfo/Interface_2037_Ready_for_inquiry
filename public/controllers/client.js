@@ -2,7 +2,8 @@ module.exports = function(app, host){
 	var rootDirectory = __dirname + '/..',
 		mongoose = require('mongoose'),
 		request = require('request'),
-		libString = require(rootDirectory+'/models/libString');
+		libString = require(rootDirectory+'/models/libString'),
+		appPath = 'http://127.0.0.1:5000';
 
 	app.get('/', function(req, res){
 		res.redirect('/client/questions');
@@ -15,7 +16,7 @@ module.exports = function(app, host){
 	.get('/client/questions', function(req, res){
 		var user_id = req.params.user_id;
 
-		request('http://127.0.0.1:5000/client/questions', function (error, response, body) {
+		request(appPath+'/client/questions', function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var data = JSON.parse(body);
 				res.render(rootDirectory + '/views/client/questions.ejs', data );
@@ -29,12 +30,12 @@ module.exports = function(app, host){
 		var options = {
 		  	method: 'post',
 		  	form: dataToBeSend,
-		  	url: "http://127.0.0.1:5000/client/questions"
+		  	url: appPath+"/client/questions"
 		};
 
 		request(options, function (error, response, body) {
 			if (!error && response.statusCode == 201) {
-				request('http://127.0.0.1:5000'+response.headers.location, function (error, response, body) {
+				request(appPath+response.headers.location, function (error, response, body) {
 					if (!error && response.statusCode == 200) {
 						var data = JSON.parse(body);
 						res.render(rootDirectory + '/views/client/questions.ejs', data );
@@ -50,9 +51,9 @@ module.exports = function(app, host){
 		var options = {
 		  	method: 'post',
 		  	form: dataToBeSend,
-		  	url: "http://127.0.0.1:5000/client/questions/label"
+		  	url: appPath+"/client/questions/label"
 		};
-		
+
 		request(options, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var data = JSON.parse(body);
@@ -63,7 +64,7 @@ module.exports = function(app, host){
 
 	.get('/client/questions/:id', function(req, res){
 		var id = req.params.id;
-		request('http://127.0.0.1:5000/client/questions/'+id, function (error, response, body) {
+		request(appPath+'/client/questions/'+id, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var data = JSON.parse(body);
 				res.render(rootDirectory + '/views/client/question.ejs', data);
@@ -77,7 +78,7 @@ module.exports = function(app, host){
 		var options = {
 			method: 'post',
 			form: dataToBeSend,
-			url: "http://127.0.0.1:5000/client/questions/"+id
+			url: appPath+"/client/questions/"+id
 		};
 
 		request(options, function (error, response, body) {

@@ -1,11 +1,12 @@
 module.exports = function(app, host){
 	var rootDirectory = __dirname + '/..',
 		mongoose = require('mongoose'),
-		request = require('request');
+		request = require('request'),
+		appPath = 'http://127.0.0.1:5000';
 
 
 	app.get('/expert/questions', function(req, res){
-		request('http://127.0.0.1:5000/expert/questions', function (error, response, body) {
+		request(appPath+'/expert/questions', function (error, response, body) {
 		  	if (!error && response.statusCode == 200) {
 		  		var data;
 		  		if(body === '') { 
@@ -27,7 +28,7 @@ module.exports = function(app, host){
 		var options = {
 		  	method: 'post',
 		  	form: dataToBeSend,
-		  	url: "http://127.0.0.1:5000/expert/questions/"+id
+		  	url: appPath+"/expert/questions/"+id
 		};
 
 		request(options, function (error, response, body) {
@@ -41,7 +42,7 @@ module.exports = function(app, host){
 	.get('/expert/questions/:id', function(req, res){
 		var id = req.params.id;
 
-		request('http://127.0.0.1:5000/expert/questions/'+id, function (error, response, body) {
+		request(appPath+'/expert/questions/'+id, function (error, response, body) {
 		  	if (!error && response.statusCode == 200) {
 		  		var data = JSON.parse(body);
 		  		if(data.status != 'traité'){
