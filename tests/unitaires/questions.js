@@ -20,6 +20,7 @@ describe.only('modelQuestions', function(){
 		// Delete all questions
 		modelQuestion.deleteAll(function(){
 			console.log("BEFORE : All questions have been removed");
+			done();
 		});
 	});
 
@@ -52,6 +53,14 @@ describe.only('modelQuestions', function(){
 			test.value(question.publicationDate).isEqualTo(questionTest.publicationDate);
 			test.value(questionTest.answer).isEqualTo('');
 			test.value(questionTest.status).isEqualTo('non-traité');
+			done();
+		});
+	});
+
+	// User search for one label, 1 question is available
+	it('should get the question', function(done){
+		modelQuestion.findLabel('test unitaire', function(questions){
+			test.value(questions.length).isEqualTo(1);
 			done();
 		});
 	});
