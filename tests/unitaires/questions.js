@@ -4,17 +4,11 @@ var rootDirectory = __dirname + '/../..',
 	config = require(rootDirectory+'/config/config'),
 	schemaQuestion = require(rootDirectory+'/schemas/questions'),
 	modelQuestion = require(rootDirectory+'/models/questions'),
-	schemaUser = require(rootDirectory+'/schemas/users'),
-	modelUser = require(rootDirectory+'/models/users'),
 	libString = require(rootDirectory+'/models/libString');
 
 	var ModelQuestionDb = mongoose.model('Question');
 		modelQuestion.host = config.dbTest.host;
 		modelQuestion.model = ModelQuestionDb;
-		ModelUserDb = mongoose.model('User');
-		modelUser.host = config.db.host;
-		modelUser.model = ModelUserDb;
-	var user;
 
 describe.only('modelQuestions', function(){
 
@@ -22,28 +16,10 @@ describe.only('modelQuestions', function(){
 	var newStatus = 'traité';
 	var newAnswer = 'reponse d\'une question pour test unitaire';
 
-	before('S assurer que testUser@gmail.com soit dans la base', function(done){
+	before('Clean the question collection', function(done){
 		// Delete all questions
 		modelQuestion.deleteAll(function(){
 			console.log("BEFORE : All questions have been removed");
-			// Create user test
-			var emailClean = "testUser@gmail.com";
-			var passwordClean = "test";
-			modelUser.getUserConnection(emailClean, passwordClean, function(userFound){
-				user = userFound;
-				if (!userFound) 
-				{
-					var oneUser = new ModelUserDb({email: emailClean, password: passwordClean});
-					modelUser.add(oneUser, function(userCreated){
-						user = userCreated;
-						done();
-					});
-				}
-				else
-				{
-					done();
-				}			
-			});
 		});
 	});
 

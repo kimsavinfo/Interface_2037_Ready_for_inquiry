@@ -2,14 +2,8 @@ module.exports = function(app, host){
 	var rootDirectory = __dirname + '/..',
 		mongoose = require('mongoose'),
 		request = require('request'),
-		schemaUser = require(rootDirectory+'/schemas/users'),
-		modelUser = require(rootDirectory+'/models/users'),
 		libString = require(rootDirectory+'/models/libString');
 
-	var	ModelUserDb = mongoose.model('User');
-		modelUser.host = host;
-		modelUser.model = ModelUserDb;
-		
 	app.get('/', function(req, res){
 		res.redirect('/client/questions');
 	})
