@@ -35,6 +35,22 @@ module.exports = {
 	 	});
 	},
 
+	findLabel: function(label, callback){
+		_this = this;
+		mongoose.connect(this.host, function(err) {
+			if (err) { throw err; }
+			_this.model.find(
+				{label: new RegExp(label, "i")},
+				{},
+				{sort:'publicationDate'},
+				function(err, questions){
+				if (err) { throw err; }
+				mongoose.connection.close();
+				callback(questions);
+			});
+		});
+	},
+
 	add: function(oneQuestion, callback){
 		mongoose.connect(this.host, function(err) {
 	  		if (err) { throw err; }
@@ -54,20 +70,6 @@ module.exports = {
 				if (err) { throw err; }
 				mongoose.connection.close();
 				callback(question);
-			});
-		});
-	},
-
-	getQuestionsUser: function(user_id, callback){
-		_this = this;
-		mongoose.connect(this.host, function(err) {
-			if (err) { throw err; }
-			_this.model.find(
-				{user_id: user_id}, 
-				function(err, userQuestions){
-				if (err) { throw err; }
-				mongoose.connection.close();
-				callback(userQuestions);
 			});
 		});
 	},

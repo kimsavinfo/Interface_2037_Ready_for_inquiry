@@ -25,6 +25,14 @@ module.exports = function(app, host){
 		});
 	})
 
+	.post('/client/questions/label', function(req, res){
+		var labelClean = libString.htmlEntities(req.body.label);
+		modelQuestion.findLabel(labelClean,function(questions){
+			console.log(questions);
+			res.status(200).json({questions : questions});
+		});
+	})
+
 	.get('/client/questions/:id', function(req, res){
 		var id = req.params.id;
 		modelQuestion.get(id, function(question){
