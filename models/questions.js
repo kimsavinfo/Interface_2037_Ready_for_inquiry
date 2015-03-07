@@ -27,6 +27,8 @@ module.exports = {
 			if (err) { throw err; }
 			_this.model.find(
 				{},
+				{},
+				{sort: {publicationDate: -1} },
 				function(err, questions){
 					if (err) { throw err; }
 					mongoose.connection.close();
@@ -42,7 +44,7 @@ module.exports = {
 			_this.model.find(
 				{label: new RegExp(label, "i")},
 				{},
-				{sort:'publicationDate'},
+				{sort: {publicationDate: -1} },
 				function(err, questions){
 				if (err) { throw err; }
 				mongoose.connection.close();
