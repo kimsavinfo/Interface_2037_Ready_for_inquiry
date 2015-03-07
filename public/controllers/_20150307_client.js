@@ -11,6 +11,7 @@ module.exports = function(app, host){
 		modelUser.model = ModelUserDb;
 		
 	app.get('/', function(req, res){
+		console.log("OIJSDFSDFOJOI");
 		res.status(200);
 		res.render(rootDirectory + '/views/client/connection.ejs');
 	})

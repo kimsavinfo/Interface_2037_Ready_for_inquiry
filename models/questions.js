@@ -26,14 +26,12 @@ module.exports = {
 		mongoose.connect(this.host, function(err) {
 			if (err) { throw err; }
 			_this.model.find(
-				{status:'non-traité'}, 
-				{status:"en-traitement"}, 
-				{sort:'publicationDate'},
+				{},
 				function(err, questions){
 					if (err) { throw err; }
 					mongoose.connection.close();
 					callback(questions);
-			});
+			}).limit(30);
 	 	});
 	},
 

@@ -19,8 +19,7 @@ module.exports = function(app, host){
 
 	.post('/client/questions', function(req, res){
 		var labelClean = libString.htmlEntities(req.body.label);
-		var user_id = req.body.user_id;
-		var oneQuestion = new ModelQuestionDb({user_id: user_id ,label: labelClean});
+		var oneQuestion = new ModelQuestionDb({label: labelClean});
 		modelQuestion.add(oneQuestion, function(question){
 			res.redirect(201, '/client/questions');
 		});
@@ -28,7 +27,17 @@ module.exports = function(app, host){
 
 	.get('/client/questions/:id', function(req, res){
 		var id = req.params.id;
-		var user_id = req.params.user_id;
+		modelQuestion.get(id, function(question){
+			if (!res.getHeader('Cache-Control')) 
+			{
+				res.setHeader('Cache-Control', 'public, max-age=31557600000');
+			}
+			res.status(200).json(question);
+		});
+	})
+
+	.get('/client/questions/:id', function(req, res){
+		var id = req.params.id;
 		modelQuestion.get(id, function(question){
 			if (!res.getHeader('Cache-Control')) 
 			{
