@@ -10,7 +10,7 @@ var rootDirectory = __dirname + '/../..',
 		modelQuestion.host = config.dbTest.host;
 		modelQuestion.model = ModelQuestionDb;
 
-describe.only('modelQuestions', function(){
+describe('modelQuestions', function(){
 
 	var question = new ModelQuestionDb({label: 'Question pour test unitaire'});
 	var newStatus = 'traité';

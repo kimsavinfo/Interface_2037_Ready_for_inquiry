@@ -19,8 +19,7 @@ require('./controllers/expert')(app, config.db.host);
 require('./controllers/client')(app, config.db.host);
 
 app.use(function (req, res) {
-	res.status(404);
-   	res.render(__dirname+'/views/statics/error.ejs');
+	res.status(404).send();
 });
 
-server.listen(5000);
+module.exports = server;
