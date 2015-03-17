@@ -45,21 +45,36 @@ module.exports = function(app, host){
 		});
 	})
 
-	.post('/client/questions/label', function(req, res){
-		var labelClean = libString.htmlEntities(req.body.label);
-		var dataToBeSend = {label: labelClean};
-		var options = {
-		  	method: 'post',
-		  	form: dataToBeSend,
-		  	url: appPath+"/client/questions/label"
-		};
+	.get('/client/questions/label', function(req, res){
+		var labelClean = "";
 
-		request(options, function (error, response, body) {
-			if (!error && response.statusCode == 200) {
-				var data = JSON.parse(body);
-				res.render(rootDirectory + '/views/client/questions.ejs', data );
-			}
-		});
+		console.log(typeof req.query.label);
+		if (typeof req.query.label != 'undefined')
+			labelClean = libString.htmlEntities(req.query.label);
+
+		console.log(labelClean.length );
+
+		if(labelClean.length > 0)
+		{
+			var dataToBeSend = {label: labelClean};
+			var options = {
+			  	method: 'get',
+			  	form: dataToBeSend,
+			  	url: appPath+"/client/questions/label"
+			};
+
+			request(options, function (error, response, body) {
+				if (!error && response.statusCode == 200) {
+					var data = JSON.parse(body);
+					res.render(rootDirectory + '/views/client/questions.ejs', data );
+				}
+			});
+		}
+		else
+		{
+			console.log("Pas de recherche");
+			res.redirect('/client/questions');
+		}
 	})
 
 	.get('/client/questions/:id', function(req, res){

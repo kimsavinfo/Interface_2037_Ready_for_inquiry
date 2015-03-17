@@ -25,7 +25,7 @@ module.exports = function(app, host){
 		});
 	})
 
-	.post('/client/questions/label', function(req, res){
+	.get('/client/questions/label', function(req, res){
 		var labelClean = libString.htmlEntities(req.body.label);
 		modelQuestion.findLabel(labelClean,function(questions){
 			res.status(200).json({questions : questions});
