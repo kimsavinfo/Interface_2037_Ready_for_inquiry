@@ -14,14 +14,39 @@ module.exports = function(app, host){
 	})
 
 	.get('/client/questions', function(req, res){
-		var user_id = req.params.user_id;
 
-		request(appPath+'/client/questions', function (error, response, body) {
-			if (!error && response.statusCode == 200) {
-				var data = JSON.parse(body);
-				res.render(rootDirectory + '/views/client/questions.ejs', data );
-			}
-		});
+		var labelClean = "";
+		
+		if (typeof req.query.label != 'undefined')
+			labelClean = libString.htmlEntities(req.query.label);
+
+		if(labelClean.length > 0)
+		{
+			// Recherche précise en fonction du label indiqué
+			var dataToBeSend = {label: labelClean};
+			var options = {
+			  	method: 'get',
+			  	form: dataToBeSend,
+			  	url: appPath+"/client/questions"
+			};
+
+			request(options, function (error, response, body) {
+				if (!error && response.statusCode == 200) {
+					var data = JSON.parse(body);
+					res.render(rootDirectory + '/views/client/questions.ejs', data );
+				}
+			});
+		}
+		else
+		{
+			// Récupérer les 30 dernières questions
+			request(appPath+'/client/questions', function (error, response, body) {
+				if (!error && response.statusCode == 200) {
+					var data = JSON.parse(body);
+					res.render(rootDirectory + '/views/client/questions.ejs', data );
+				}
+			});
+		}
 	})
 
 	.post('/client/questions', function(req, res){
@@ -43,34 +68,6 @@ module.exports = function(app, host){
 				});
 			}
 		});
-	})
-
-	.get('/client/questions/label', function(req, res){
-		var labelClean = "";
-		
-		if (typeof req.query.label != 'undefined')
-			labelClean = libString.htmlEntities(req.query.label);
-
-		if(labelClean.length > 0)
-		{
-			var dataToBeSend = {label: labelClean};
-			var options = {
-			  	method: 'get',
-			  	form: dataToBeSend,
-			  	url: appPath+"/client/questions/label"
-			};
-
-			request(options, function (error, response, body) {
-				if (!error && response.statusCode == 200) {
-					var data = JSON.parse(body);
-					res.render(rootDirectory + '/views/client/questions.ejs', data );
-				}
-			});
-		}
-		else
-		{
-			res.redirect('/client/questions');
-		}
 	})
 
 	.get('/client/questions/:id', function(req, res){

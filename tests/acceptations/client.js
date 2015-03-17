@@ -45,7 +45,7 @@ describe('Client', function () {
 			label: "test"
 		};
 		request(server)
-			.post('/client/questions/label')
+			.get('/client/questions')
 			.expect(200)
 			.send(params)
 			.end(function (error, res) {

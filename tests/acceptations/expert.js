@@ -68,7 +68,7 @@ describe('Server', function () {
 
 	});
 
-	/*it('update a question by id', function(done) {
+	it('update a question by id', function(done) {
 		params = {
 			answer: "reponse test"
 		};
@@ -82,8 +82,7 @@ describe('Server', function () {
 				}
 			done();
 		});
-
-	});*/
+	});
 
 
 	after(function () {

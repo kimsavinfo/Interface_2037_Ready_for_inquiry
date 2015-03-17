@@ -10,11 +10,25 @@ module.exports = function(app, host){
 		modelQuestion.model = ModelQuestionDb;
 
 	app.get('/client/questions', function(req, res){
-		var user_id = req.params.user_id;
 
-		modelQuestion.getLastQuestions(function(questions){
-			res.status(200).json({questions : questions});
-		});
+		var labelClean = "";
+		
+		if (typeof req.body.label != 'undefined')
+			labelClean = libString.htmlEntities(req.body.label);
+
+		if(labelClean.length > 0)
+		{
+			labelClean = libString.htmlEntities(req.body.label);
+			modelQuestion.findLabel(labelClean,function(questions){
+				res.status(200).json({questions : questions});
+			});
+		}
+		else
+		{
+			modelQuestion.getLastQuestions(function(questions){
+				res.status(200).json({questions : questions});
+			});
+		}
 	})
 
 	.post('/client/questions', function(req, res){
@@ -22,13 +36,6 @@ module.exports = function(app, host){
 		var oneQuestion = new ModelQuestionDb({label: labelClean});
 		modelQuestion.add(oneQuestion, function(question){
 			res.redirect(201, '/client/questions');
-		});
-	})
-
-	.get('/client/questions/label', function(req, res){
-		var labelClean = libString.htmlEntities(req.body.label);
-		modelQuestion.findLabel(labelClean,function(questions){
-			res.status(200).json({questions : questions});
 		});
 	})
 
