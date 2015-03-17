@@ -47,12 +47,9 @@ module.exports = function(app, host){
 
 	.get('/client/questions/label', function(req, res){
 		var labelClean = "";
-
-		console.log(typeof req.query.label);
+		
 		if (typeof req.query.label != 'undefined')
 			labelClean = libString.htmlEntities(req.query.label);
-
-		console.log(labelClean.length );
 
 		if(labelClean.length > 0)
 		{
@@ -72,7 +69,6 @@ module.exports = function(app, host){
 		}
 		else
 		{
-			console.log("Pas de recherche");
 			res.redirect('/client/questions');
 		}
 	})
