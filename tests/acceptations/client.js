@@ -16,6 +16,7 @@ describe('Client', function () {
 		};
 		request(server)
 			.post('/client/questions')
+			.type('form')
 			.expect(201)
 			.send(params)
 			.end(function (error, res) {

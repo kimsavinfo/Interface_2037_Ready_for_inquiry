@@ -16,6 +16,7 @@ describe('Server', function () {
 		};
 		request(server)
 			.post('/client/questions')
+			.type('form')
 			.expect(201)
 			.send(params)
 			.end(function (error, res) {
@@ -74,6 +75,7 @@ describe('Server', function () {
 		};
 		request(server)
 			.put('/expert/questions/'+question.id)
+			.type('form')
 			.expect(200)
 			.send(params)
 			.end(function (error, res) {
