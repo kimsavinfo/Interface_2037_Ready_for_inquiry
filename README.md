@@ -3,3 +3,13 @@
 
 Interface_2037_Ready_for_inquiry 
 ================================
+
+### Les services suivants sont disponibles :
+
+* /client/questions/
+* /client/questions/{id_question}
+* /expert/questions/
+* /expert/questions/{id_question}
+
+
+
