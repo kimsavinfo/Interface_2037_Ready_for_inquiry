@@ -44,7 +44,7 @@ describe('Server', function () {
 	it('find lastest questions', function(done) {
 
 		request(server)
-			.get('/expert/questions/')
+			.get('/expert/questions/last')
 			.expect(303)
 			.end(function (error, res) {
 				if(error) {
