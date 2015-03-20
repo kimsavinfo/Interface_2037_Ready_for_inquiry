@@ -47,7 +47,7 @@ module.exports = function(app, host){
 		var labelClean = libString.htmlEntities(req.body.label);
 		var oneQuestion = new ModelQuestionDb({label: labelClean});
 		modelQuestion.add(oneQuestion, function(question){
-			res.redirect(201, '/client/questions');
+			res.location('/client/questions/'+question.id).status(201).send();
 		});
 	})
 
