@@ -1,4 +1,4 @@
-module.exports = function(app, host){
+module.exports = function(app){
 	var rootDirectory = __dirname + '/..',
 		mongoose = require('mongoose'),
 		request = require('request'),

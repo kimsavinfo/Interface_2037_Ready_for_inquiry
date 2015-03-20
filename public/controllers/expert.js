@@ -1,4 +1,4 @@
-module.exports = function(app, host){
+module.exports = function(app){
 	var rootDirectory = __dirname + '/..',
 		mongoose = require('mongoose'),
 		request = require('request'),
@@ -7,15 +7,19 @@ module.exports = function(app, host){
 
 	app.get('/expert/questions', function(req, res){
 		request(appPath+'/expert/questions', function (error, response, body) {
-		  	if (!error && response.statusCode == 200) {
-		  		var data;
-		  		if(body === '') { 
-		  			data = {label: ''};
-		  		} else {
-		  			data = JSON.parse(body);
-		  		}
+		  	if (!error){
+		  		if(response.statusCode == 200) {
+			  		var data;
+			  		if(body === '') { 
+			  			data = {label: ''};
+			  		} else {
+			  			data = JSON.parse(body);
+			  		}
 
-		  		res.render(rootDirectory+'/views/expert/answer.ejs', data);
+			  		res.render(rootDirectory+'/views/expert/answer.ejs', data);
+			  	} else if (response.statusCode == 204){
+			  		res.render(rootDirectory+'/views/expert/noQuestion.ejs');
+			  	}
 		  	}
 		});
 	})

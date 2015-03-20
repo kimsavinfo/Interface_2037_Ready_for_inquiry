@@ -4,8 +4,7 @@ var express = require('express'),
 	bodyParser = require('body-parser'),
 	cookieParser = require('cookie-parser'),
     expressSession = require('express-session'),
-	methodOverride = require('method-override'),
-	config = require('./config/config');
+	methodOverride = require('method-override');
 
 app.use(cookieParser())
 .use(expressSession({
@@ -23,8 +22,8 @@ app.use(cookieParser())
 }));
 app.use('/assets', express.static(__dirname+'/assets'));
 
-require('./controllers/expert')(app, config.db.host);
-require('./controllers/client')(app, config.db.host);
+require('./controllers/expert')(app);
+require('./controllers/client')(app);
 
 app.use(function (req, res) {
 	res.status(404);

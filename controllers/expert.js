@@ -13,7 +13,7 @@ module.exports = function(app, host){
 			if(question){
 				res.redirect(303, '/expert/questions/' + question._id);
 			} else {
-				res.status(200).send();
+				res.status(204).send();
 			}
 		});
 	})
