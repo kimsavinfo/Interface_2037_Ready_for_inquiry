@@ -20,7 +20,7 @@ module.exports = function(app, host){
 		res.end();
 	})
 
-	.get('/expert/questions', function(req, res){
+	.get('/expert/questions/last', function(req, res){
 		modelQuestion.getLastQuestion(function(question){
 			if(question){
 				res.redirect(303, '/expert/questions/' + question._id);
@@ -66,6 +66,6 @@ module.exports = function(app, host){
 	})
 
 	.get('/expert', function(req, res){
-		res.redirect('/expert/questions');
+		res.redirect('/expert/questions/last');
 	});
 };

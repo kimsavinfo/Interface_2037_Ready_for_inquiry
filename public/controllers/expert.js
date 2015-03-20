@@ -5,8 +5,8 @@ module.exports = function(app){
 		appPath = 'http://127.0.0.1:5000';
 
 
-	app.get('/expert/questions', function(req, res){
-		request(appPath+'/expert/questions', function (error, response, body) {
+	app.get('/expert/questions/last', function(req, res){
+		request(appPath+'/expert/questions/last', function (error, response, body) {
 		  	if (!error){
 		  		if(response.statusCode == 200) {
 			  		var data;
@@ -59,6 +59,6 @@ module.exports = function(app){
 	})
 
 	.get('/expert', function(req, res){
-		res.redirect('/expert/questions');
+		res.redirect('/expert/questions/last');
 	});
 };
