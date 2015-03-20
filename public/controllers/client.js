@@ -60,12 +60,7 @@ module.exports = function(app){
 
 		request(options, function (error, response, body) {
 			if (!error && response.statusCode == 201) {
-				request(appPath+response.headers.location, function (error, response, body) {
-					if (!error && response.statusCode == 200) {
-						var data = JSON.parse(body);
-						res.render(rootDirectory + '/views/client/questions.ejs', data );
-					}
-				});
+				res.redirect('/client/questions');
 			}
 		});
 	})
@@ -94,6 +89,6 @@ module.exports = function(app){
 				res.redirect('/client/questions');
 			}
 		});
-	})
+	});
 
 };
