@@ -71,6 +71,7 @@ module.exports = function(app, host){
 			{
 				res.setHeader('Cache-Control', 'public, max-age=31557600000');
 			}
+			res.location('/client/questions/'+ question._id);
 			res.status(200).json(question);
 		});
 	})
