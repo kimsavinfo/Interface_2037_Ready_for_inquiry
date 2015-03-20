@@ -49,10 +49,12 @@ module.exports = function(app, host){
 		modelQuestion.get(id, function(question){
 			if(question.status != 'traité'){
 				modelQuestion.update(id, answer, 'traité', function(question){
+					res.location('/expert/questions/'+ question._id);
 					res.status(200).json(question);
 					console.log('Question répondue avec succès ! id :'+question.id);
 				});
 			} else {
+				res.location('/expert/questions/'+ question._id);
 				res.redirect(303, '/expert/questions/' + id);
 			}
 		});
@@ -61,6 +63,7 @@ module.exports = function(app, host){
 	.get('/expert/questions/:id', function(req, res){
 		var id = req.params.id;
 		modelQuestion.get(id, function(question){
+			res.location('/expert/questions/'+ question._id);
 			res.status(200).json(question);
 		});
 	})
