@@ -8,7 +8,19 @@ module.exports = function(app, host){
 	modelQuestion.host = host;
 	modelQuestion.model = ModelQuestionDb;
 
-	app.get('/expert/questions', function(req, res){
+	app.options('/expert/questions', function(req, res){
+		var headers = {};
+		// IE8 does not allow domains to be specified, just the *
+		// headers["Access-Control-Allow-Origin"] = req.headers.origin;
+		headers["Access-Control-Allow-Origin"] = "*";
+		headers["Access-Control-Allow-Methods"] = "GET, OPTIONS";
+		headers["Access-Control-Allow-Credentials"] = false;
+		headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+		res.writeHead(200, headers);
+		res.end();
+	})
+
+	.get('/expert/questions', function(req, res){
 		modelQuestion.getLastQuestion(function(question){
 			if(question){
 				res.redirect(303, '/expert/questions/' + question._id);
@@ -16,6 +28,18 @@ module.exports = function(app, host){
 				res.status(204).send();
 			}
 		});
+	})
+
+	.options('/expert/questions/:id', function(req, res){
+		var headers = {};
+		// IE8 does not allow domains to be specified, just the *
+		// headers["Access-Control-Allow-Origin"] = req.headers.origin;
+		headers["Access-Control-Allow-Origin"] = "*";
+		headers["Access-Control-Allow-Methods"] = "GET, PUT, OPTIONS";
+		headers["Access-Control-Allow-Credentials"] = false;
+		headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+		res.writeHead(200, headers);
+		res.end();
 	})
 
 	.put('/expert/questions/:id', function(req, res){
