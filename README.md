@@ -13,6 +13,6 @@ Interface_2037_Ready_for_inquiry
 
 > Note : pour chaque URI, vous trouverez avez à disposition la méthode OPTIONS.
 
-### La documentation de l'API est disponible dans le fichier suivant :
+### La documentation de l'API est acccesible dans le fichier
 ![/documentation/doc_API.pdf](/documentation/doc_API.pdf)
 
