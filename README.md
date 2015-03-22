@@ -10,4 +10,9 @@ Interface_2037_Ready_for_inquiry
 * /expert/questions/last
 * /expert/questions/{id_question}
 
-![alt tag](/documentation/doc_API.pdf)
+
+> Note : chaque uri vous trouverez la méthode OPTIONS.
+
+# La documentation de l'API est disponible dans "/documentation/doc_API.pdf" :
+![documentation_API](/documentation/doc_API.pdf)
+
