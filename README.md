@@ -11,8 +11,8 @@ Interface_2037_Ready_for_inquiry
 * /expert/questions/{id_question}
 
 
-> Note : chaque uri vous trouverez la méthode OPTIONS.
+> Note : pour chaque URI, vous trouverez avez à disposition la méthode OPTIONS.
 
-### La documentation de l'API est disponible dans "/documentation/doc_API.pdf" :
-![documentation_API](/documentation/doc_API.pdf)
+### La documentation de l'API est disponible dans le fichier suivant :
+![/documentation/doc_API.pdf](/documentation/doc_API.pdf)
 
