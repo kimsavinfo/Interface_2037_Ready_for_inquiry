@@ -32,13 +32,17 @@ module.exports = function(app, host){
 		{
 			labelClean = libString.htmlEntities(req.body.label);
 			modelQuestion.findLabel(labelClean,function(questions){
-				res.status(200).json({questions : questions});
+				modelQuestion.clean(questions, function(questions){
+					res.status(200).json({questions : questions});
+				});
 			});
 		}
 		else
 		{
 			modelQuestion.getLastQuestions(function(questions){
-				res.status(200).json({questions : questions});
+				modelQuestion.clean(questions, function(questions){
+					res.status(200).json({questions : questions});
+				});
 			});
 		}
 	})
@@ -67,12 +71,14 @@ module.exports = function(app, host){
 	.get('/client/questions/:id', function(req, res){
 		var id = req.params.id;
 		modelQuestion.get(id, function(question){
-			if (!res.getHeader('Cache-Control')) 
-			{
-				res.setHeader('Cache-Control', 'public, max-age=31557600000');
-			}
-			res.location('/client/questions/'+ question._id);
-			res.status(200).json(question);
+			modelQuestion.clean([question], function(question){
+				if (!res.getHeader('Cache-Control')) 
+				{
+					res.setHeader('Cache-Control', 'public, max-age=31557600000');
+				}
+				res.location('/client/questions/'+ question._id);
+				res.status(200).json(question);
+			});
 		});
 	})
 

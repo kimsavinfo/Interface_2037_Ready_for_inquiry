@@ -10,7 +10,7 @@ var rootDirectory = __dirname + '/../..',
 		modelQuestion.host = config.dbTest.host;
 		modelQuestion.model = ModelQuestionDb;
 
-describe('modelQuestions', function(){
+describe.only('modelQuestions', function(){
 
 	var question = new ModelQuestionDb({label: 'Question pour test unitaire'});
 	var newStatus = 'traité';
@@ -46,7 +46,7 @@ describe('modelQuestions', function(){
 	});
 
 	// User consult the question, the answer is not available
-	it('should get the question', function(done){
+	it('should get the question by id', function(done){
 		modelQuestion.get(question.id, function(questionTest){
 			test.value(question.id).isEqualTo(questionTest.id);
 			test.value(question.label).isEqualTo(questionTest.label);
@@ -58,7 +58,7 @@ describe('modelQuestions', function(){
 	});
 
 	// User search for one label, 1 question is available
-	it('should get the question', function(done){
+	it('should get the question by label', function(done){
 		modelQuestion.findLabel('test unitaire', function(questions){
 			test.value(questions.length).isEqualTo(1);
 			done();
@@ -86,6 +86,20 @@ describe('modelQuestions', function(){
 		});
 	});
 
+	// Clean a question
+	it('should clean a question object', function(done){
+		modelQuestion.get(question.id, function(questionDB){
+			modelQuestion.clean([questionDB], function(questionTest){
+				test.value(questionTest.status).isFalsy();
+				test.value(questionTest.__v).isFalsy();
+				test.value(questionTest._id).isTruthy();
+				test.value(questionTest.label).isTruthy();
+				test.value(questionTest.answer).isTruthy();
+				done();
+			});
+		});
+	});
+
 	// User delete a question
 	it('should delete the question', function(done){
 		modelQuestion.delete(question.id, function(){
@@ -95,5 +109,7 @@ describe('modelQuestions', function(){
 			});
 		});
 	});
+
+
 
 });
