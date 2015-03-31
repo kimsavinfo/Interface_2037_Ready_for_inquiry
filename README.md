@@ -14,5 +14,5 @@ Interface 2037 - Ready for inquiry
 > Note : pour chaque URI, vous trouverez avez à disposition la méthode OPTIONS.
 
 ### La documentation de l'API est acccesible dans le fichier
-![/documentation/doc_API.pdf](/documentation/doc_API.pdf)
+![docs/doc_API.pdf](docs/doc_API.pdf)
 
