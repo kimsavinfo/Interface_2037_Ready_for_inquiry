@@ -95,6 +95,7 @@ describe('modelQuestions', function(){
 				test.value(questionTest[0]._id).isTruthy();
 				test.value(questionTest[0].label).isTruthy();
 				test.value(questionTest[0].answer).isTruthy();
+				test.value(questionTest[0].links).isTruthy();
 				done();
 			});
 		});
