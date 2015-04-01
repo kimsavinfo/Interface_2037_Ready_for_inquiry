@@ -32,7 +32,7 @@ module.exports = function(app, host){
 		{
 			labelClean = libString.htmlEntities(req.body.label);
 			modelQuestion.findLabel(labelClean,function(questions){
-				modelQuestion.clean(questions, function(questions){
+				modelQuestion.clean(questions, "client", function(questions){
 					res.status(200).json({questions : questions});
 				});
 			});
@@ -40,7 +40,7 @@ module.exports = function(app, host){
 		else
 		{
 			modelQuestion.getLastQuestions(function(questions){
-				modelQuestion.clean(questions, function(questions){
+				modelQuestion.clean(questions, "client", function(questions){
 					res.status(200).json({questions : questions});
 				});
 			});
@@ -71,7 +71,7 @@ module.exports = function(app, host){
 	.get('/client/questions/:id', function(req, res){
 		var id = req.params.id;
 		modelQuestion.get(id, function(question){
-			modelQuestion.clean([question], function(question){
+			modelQuestion.clean([question], "client", function(question){
 				if (!res.getHeader('Cache-Control')) 
 				{
 					res.setHeader('Cache-Control', 'public, max-age=31557600000');

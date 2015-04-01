@@ -70,7 +70,7 @@ module.exports = function(app){
 		request(appPath+'/client/questions/'+id, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var data = JSON.parse(body);
-				res.render(rootDirectory + '/views/client/question.ejs', data);
+				res.render(rootDirectory + '/views/client/question.ejs', data[0]);
 			}
 		});
 	})

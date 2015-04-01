@@ -16,7 +16,7 @@ module.exports = function(app){
 			  			data = JSON.parse(body);
 			  		}
 
-			  		res.render(rootDirectory+'/views/expert/answer.ejs', data);
+			  		res.render(rootDirectory+'/views/expert/answer.ejs', data[0]);
 			  	} else if (response.statusCode == 204){
 			  		res.render(rootDirectory+'/views/expert/noQuestion.ejs');
 			  	}
@@ -38,7 +38,7 @@ module.exports = function(app){
 		request(options, function (error, response, body) {
   			if (!error && response.statusCode == 200) {
   				var data = JSON.parse(body);
-				res.render(rootDirectory + '/views/expert/question.ejs', data);
+				res.render(rootDirectory + '/views/expert/question.ejs', data[0]);
   			}
   		});
 	})
@@ -50,9 +50,9 @@ module.exports = function(app){
 		  	if (!error && response.statusCode == 200) {
 		  		var data = JSON.parse(body);
 		  		if(data.status != 'traité'){
-					res.render(rootDirectory + '/views/expert/answer.ejs', data);
+					res.render(rootDirectory + '/views/expert/answer.ejs', data[0]);
 				} else {
-					res.render(rootDirectory + '/views/expert/question.ejs', data);
+					res.render(rootDirectory + '/views/expert/question.ejs', data[0]);
 				}
 		  	}
 		});

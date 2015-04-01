@@ -112,18 +112,22 @@ module.exports = {
 		});
 	},
 
-	clean: function(questions, callback){
-		for(var i in questions){
-			questions[i] = questions[i].toObject();
-			delete questions[i].__v;
-			delete questions[i].status;
+	clean: function(questions, space, callback){
+		if(questions.length > 0)
+		{
+			for(var i in questions)
+			{
+				questions[i] = questions[i].toObject();
+				delete questions[i].__v;
+				delete questions[i].status;
 
-			if(i == questions.length-1){
-				if(questions.length == 1)
-					callback(questions[0]);
-				else
-					callback(questions);
+				questions[i].links = [{
+					"rel": "self",
+					"href": "/"+space+"/questions/"+questions[i]._id
+				}];
 			}
 		}
+
+		callback(questions);
 	}
 };
