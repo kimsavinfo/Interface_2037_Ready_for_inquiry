@@ -47,9 +47,9 @@ module.exports = function(app, host){
 			answer = req.body.answer;
 
 		modelQuestion.get(id, function(question){
-			if(question.status != 'traité'){
+			if(answer != ''){
 				modelQuestion.update(id, answer, 'traité', function(question){
-					modelQuestion.clean([question], function(question){
+					modelQuestion.clean([question], "expert", function(question){
 						res.location('/expert/questions/'+ question._id);
 						res.status(200).json(question);
 						console.log('Question répondue avec succès ! id :'+question.id);
@@ -65,7 +65,7 @@ module.exports = function(app, host){
 	.get('/expert/questions/:id', function(req, res){
 		var id = req.params.id;
 		modelQuestion.get(id, function(question){
-			modelQuestion.clean([question], function(question){
+			modelQuestion.clean([question], "expert",function(question){
 				res.location('/expert/questions/'+ question._id);
 				res.status(200).json(question);
 			});

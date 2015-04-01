@@ -49,7 +49,7 @@ module.exports = function(app){
 		request(appPath+'/expert/questions/'+id, function (error, response, body) {
 		  	if (!error && response.statusCode == 200) {
 		  		var data = JSON.parse(body);
-		  		if(data.status != 'traité'){
+		  		if(data.answer != ''){
 					res.render(rootDirectory + '/views/expert/answer.ejs', data[0]);
 				} else {
 					res.render(rootDirectory + '/views/expert/question.ejs', data[0]);
