@@ -89,12 +89,12 @@ describe('modelQuestions', function(){
 	// Clean a question
 	it('should clean a question object', function(done){
 		modelQuestion.get(question.id, function(questionDB){
-			modelQuestion.clean([questionDB], function(questionTest){
-				test.value(questionTest.status).isFalsy();
-				test.value(questionTest.__v).isFalsy();
-				test.value(questionTest._id).isTruthy();
-				test.value(questionTest.label).isTruthy();
-				test.value(questionTest.answer).isTruthy();
+			modelQuestion.clean([questionDB], "client",function(questionTest){
+				test.value(questionTest[0].status).isFalsy();
+				test.value(questionTest[0].__v).isFalsy();
+				test.value(questionTest[0]._id).isTruthy();
+				test.value(questionTest[0].label).isTruthy();
+				test.value(questionTest[0].answer).isTruthy();
 				done();
 			});
 		});
