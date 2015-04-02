@@ -1,6 +1,7 @@
 var rootDirectory = __dirname + '/../..',
 	test = require('unit.js'),
 	mongoose = require('mongoose'),
+	json = JSON.parse,
 	config = require(rootDirectory+'/config/config'),
 	schemaQuestion = require(rootDirectory+'/schemas/questions'),
 	modelQuestion = require(rootDirectory+'/models/questions'),
@@ -16,8 +17,6 @@ var rootDirectory = __dirname + '/../..',
 describe('=== Scenarii ===', function(){
 
 	var questionScenarii = new ModelQuestionDb({label: 'Question pour test scenarii'});
-	var newStatusScenarii = 'traité';
-	var newAnswerScenarii = 'reponse d\'une question pour test scenarii';
 
 	before(function () {
 		server.listen(5002,function(){
@@ -73,7 +72,7 @@ describe('=== Scenarii ===', function(){
 			questionScenarii.idBdD = href.substring(href.lastIndexOf('/')+1, href.length);
 
 			console.log('- Elle sera disponible a l adresse : '+questionScenarii.href);
-			test.should(questionScenarii.href).be.equal('/client/questions/'+questionScenarii.idBdD);			
+			test.should(questionScenarii.href).be.equal('/client/questions/'+questionScenarii.idBdD);
 
 			done();
 		});
@@ -125,7 +124,34 @@ describe('=== Scenarii ===', function(){
 				});
 			});
 		});
-		
+	});
+
+	it("Le systeme expert fournit une réponse", function(done)
+	{
+		console.log('Etant donne que le systeme expert a recupere une question en attente');
+		console.log('Et qu il a trouve une reponse');
+		console.log('Quand il fournit la reponse au serveur');
+		console.log('Alors le serveur indique qu il a enregistre la reponse a la question');
+
+		params = {
+			answer: "reponse d\'une question pour test scenarii"
+		};
+		request(server)
+			.put('/expert/questions/'+questionScenarii.idBdD)
+			.type('form')
+			.expect(200)
+			.send(params)
+			.end(function (error, res) {
+				if(error) {
+					throw error;
+				}
+
+			var questionResult = json(res.text);
+			console.log("- La reponse a bien ete enregistree et est disponible a l adresse :");
+			test.should(questionResult[0].links[0].href).be.equal('/expert/questions/'+questionScenarii.idBdD);	
+
+			done();
+		});
 	});
 
 	after(function () {
