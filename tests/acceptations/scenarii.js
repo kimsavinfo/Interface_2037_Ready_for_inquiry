@@ -126,6 +126,30 @@ describe('=== Scenarii ===', function(){
 		});
 	});
 
+	it("L usager consulte la question mais elle n a pas encore de reponse", function(done)
+	{
+		console.log('Etant donne qu un usager a pose une question');
+		console.log('Et aucun systeme expert n a pas encore traité la question');
+		console.log('Quand l usager demande a consulter la reponse');
+		console.log('Alors le serveur indique que la reponse n est pas encore disponible');
+
+		request(server)
+				.get('/expert/questions/'+questionScenarii.idBdD)
+				.expect(200)
+				.end(function (error, res) {
+					if(error) {
+						throw error;
+					}
+
+			
+			var questionResult = json(res.text);
+			test.should(res.body[0].answer).be.equal('');	
+
+			console.log('- L usager visualise la question sans reponse.');
+			done();
+		});
+	});
+
 	it("Le systeme expert fournit une réponse", function(done)
 	{
 		console.log('Etant donne que le systeme expert a recupere une question en attente');
@@ -147,12 +171,81 @@ describe('=== Scenarii ===', function(){
 				}
 
 			var questionResult = json(res.text);
+			questionScenarii.answer = questionResult[0].answer;
 			console.log("- La reponse a bien ete enregistree et est disponible a l adresse :");
 			test.should(questionResult[0].links[0].href).be.equal('/expert/questions/'+questionScenarii.idBdD);	
 
 			done();
 		});
 	});
+
+	it("L usager consulte la question et le systeme a bien respondu", function(done)
+	{
+		console.log('Etant donne qu un usager a pose une question');
+		console.log('Et un systeme expert a traite la question');
+		console.log('Quand l usager demande a consulter la reponse');
+		console.log('Alors le serveur affiche la reponse du systeme expert');
+
+
+		request(server)
+				.get('/expert/questions/'+questionScenarii.idBdD)
+				.expect(200)
+				.end(function (error, res) {
+					if(error) {
+						throw error;
+					}
+
+			
+			var questionResult = json(res.text);
+			test.should(res.body[0].answer).be.equal(questionScenarii.answer);	
+
+			console.log('- L usager visualise la question avec la reponse du systeme expert.');
+			done();
+		});
+	});
+
+	it("Le systeme expert indique qu il ne connait pas la response", function(done)
+	{
+		console.log('Etant donne que le systeme expert a recupere une question en attente');
+		console.log('Et qu il a trouve une reponse');
+		console.log('Quand il notifie le serveur de son echec');
+		console.log('Alors le serveur enregistre que cette question n a pas de reponse connue.');
+
+		params = {
+			answer: "Désolé, nous ne connaissons pas la réponse."
+		};
+		request(server)
+			.put('/expert/questions/'+questionScenarii.idBdD)
+			.type('form')
+			.expect(200)
+			.send(params)
+			.end(function (error, res) {
+				if(error) {
+					throw error;
+				}
+
+			var questionResult = json(res.text);
+			questionScenarii.answerInconnue = questionResult[0].answer;
+			console.log("- La reponse a bien ete enregistree et est disponible a l adresse :");
+			test.should(questionResult[0].links[0].href).be.equal('/expert/questions/'+questionScenarii.idBdD);	
+
+			request(server)
+				.get('/expert/questions/'+questionScenarii.idBdD)
+				.expect(200)
+				.end(function (error, res) {
+					if(error) {
+						throw error;
+					}
+
+				var questionResult = json(res.text);
+				test.should(res.body[0].answer).be.equal(questionScenarii.answerInconnue);	
+
+				console.log('- L usager visualise la question qui n a pu etre repondue par l expert');
+				done();
+			});
+		});
+	});
+
 
 	after(function () {
 		server.close();
