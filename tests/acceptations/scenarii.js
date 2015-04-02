@@ -47,7 +47,7 @@ describe('=== Scenarii ===', function(){
 		});
 	});
 
-	it("L usager pose une question au serveur", function(done)
+	it("L usager pose une question au serveur et sait ou elle sera disponible", function(done)
 	{
 		console.log('Quand l usager pose une question au serveur');
 		console.log('Alors le serveur indique qu il a enregistre la question');
@@ -77,7 +77,55 @@ describe('=== Scenarii ===', function(){
 
 			done();
 		});
+	});
 
+	it("Le systeme expert propose la question en attente", function(done)
+	{
+		console.log('Etant donne qu il existe une question en attente de reponse');
+		console.log('Quand le systeme expert demande la prochaine question au serveur'); 
+		console.log('Alors il recupere la question en attente');
+		console.log('Et la question suivante devient la question en attente');
+
+		request(server)
+			.post('/client/questions')
+			.type('form')
+			.expect(201)
+			.send(params)
+			.end(function (error, res) {
+				if(error) {
+					throw error;
+				}
+
+				console.log('- L usager a pose une seconde question au serveur');
+				var href = res.headers.location;
+				question2_idBdD = href.substring(href.lastIndexOf('/')+1, href.length);
+
+				request(server)
+				.get('/expert/questions/last')
+				.expect(303)
+				.end(function (error, res) {
+					if(error) {
+						throw error;
+					}
+
+				var redirection = res.headers.location;
+
+				request(server)
+					.get(redirection)
+					.expect(200)
+					.end(function (error, res) {
+						if(error) {
+							throw error;
+						}
+
+					console.log('- L experter recupere la premiere question posee et la seconde passe en attente');
+					test.should(res.body[0]._id).be.equal(questionScenarii.idBdD);	
+
+					done();
+				});
+			});
+		});
+		
 	});
 
 	after(function () {
