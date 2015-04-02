@@ -12,9 +12,12 @@ var rootDirectory = __dirname + '/../..',
 
 	var server = require('../../app');
 	var request = require('supertest');
-	var question = {};
 
-describe('Scenarii', function(){
+describe('=== Scenarii ===', function(){
+
+	var questionScenarii = new ModelQuestionDb({label: 'Question pour test scenarii'});
+	var newStatusScenarii = 'traité';
+	var newAnswerScenarii = 'reponse d\'une question pour test scenarii';
 
 	before(function () {
 		server.listen(5002,function(){
@@ -22,7 +25,7 @@ describe('Scenarii', function(){
 		});
 	});
 
-	it("Aucune question", function(done)
+	it("Aucune question pour le systeme expert", function(done)
 	{
 		console.log('Etant donne qu il n existe aucune question');
 		console.log('Quand le systeme expert demande la prochaine question au serveur');
@@ -30,7 +33,7 @@ describe('Scenarii', function(){
 		console.log('Et le systeme expert se met veille avant de redemander une question');
 
 		modelQuestion.deleteAll(function(){
-			console.log("Il n existe aucune question");
+			console.log("- Il n existe aucune question en base");
 
 			request(server)
 				.get('/expert/questions/last')
@@ -42,6 +45,39 @@ describe('Scenarii', function(){
 				done();
 			});
 		});
+	});
+
+	it("L usager pose une question au serveur", function(done)
+	{
+		console.log('Quand l usager pose une question au serveur');
+		console.log('Alors le serveur indique qu il a enregistre la question');
+		console.log('Et il permet a l usager de localiser la reponse lorsqu elle sera disponible');
+
+		var params = {
+			label: "question-test"
+		};
+
+		request(server)
+			.post('/client/questions')
+			.type('form')
+			.expect(201)
+			.send(params)
+			.end(function (error, res) {
+				if(error) {
+					throw error;
+				}
+			
+			console.log('- L usager a pose une question au serveur');
+			var href = res.headers.location;
+			questionScenarii.href = href;
+			questionScenarii.idBdD = href.substring(href.lastIndexOf('/')+1, href.length);
+
+			console.log('- Elle sera disponible a l adresse : '+questionScenarii.href);
+			test.should(questionScenarii.href).be.equal('/client/questions/'+questionScenarii.idBdD);			
+
+			done();
+		});
+
 	});
 
 	after(function () {
