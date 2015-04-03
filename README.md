@@ -35,6 +35,8 @@ Paramètres
 | label         | paramètre optionnel, indique le contenu de la question que l'utilisateur souhaite rechercher |     valeur|      
 Corps de la réponse
 
+| élément       | corp                                     |
+| ------------- | ---------------------------------------- |
 | Eléments json | les trente dernières questions posées    |
-| Elément json  | les questions contenant le label indiqué |   
+| Eléments json | les questions contenant le label indiqué |   
 
