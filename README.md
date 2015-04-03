@@ -16,15 +16,13 @@ Interface 2037 - Ready for inquiry
 ### La documentation de l'API est acccesible dans le fichier
 ![docs/doc_API.pdf](docs/doc_API.pdf)
 
-================================
+---
 
 ###/client/questions/
 
 ####GET
 
----
-
-***
+================================
 
 Retourne les trente dernières questions posées.
 
@@ -32,13 +30,15 @@ Retourne les trente dernières questions posées.
 
 * 200 : succès
 
-- - -
+
 
 > Paramètres
 
 | nom           | description                                                                                  | type      |
 | ------------- | -------------------------------------------------------------------------------------------- | --------- | 
-| label         | paramètre optionnel, indique le contenu de la question que l'utilisateur souhaite rechercher |     valeur|      
+| label         | paramètre optionnel, indique le contenu de la question que l'utilisateur souhaite rechercher |     valeur|
+
+
 > Corps de la réponse
 
 | élément       | corp                                     |
@@ -49,7 +49,9 @@ Retourne les trente dernières questions posées.
 La liste des trente dernières question posées en JSON.
 
 
-###POST
+####POST
+
+================================
 
 Ajoute une question en base.
 
@@ -66,17 +68,21 @@ Ajoute une question en base.
 
 ####OPTIONS
 
+================================
+
 Lister les méthodes HTTP autorisées pour cette URI.
 
 > Liste des codes retours HTTP possibles:
 
 * 200 : success
 
-================================
+---
 
-/client/questions/{id_question}
+###/client/questions/{id_question}
 
 ####GET
+
+================================
 
 Obtient la question associée à l'identifiant indiqué.
 
@@ -101,6 +107,8 @@ La question essociée à l’identifiant sous le format JSON.
 
 ####DELETE
 
+================================
+
 Supprime la question associée à l'identifiant indiqué.
 
 > Liste des codes retours HTTP possibles :
@@ -116,17 +124,21 @@ Supprime la question associée à l'identifiant indiqué.
 
 ####OPTIONS
 
+================================
+
 Lister les méthodes HTTP autorisées pour cette URI.
 
 > Liste des codes retours HTTP possibles:
 
 * 200 : OK
 
-================================
+---
 
-/expert/questions
+###/expert/questions
 
 ####OPTIONS
+
+================================
 
 Lister les méthodes HTTP autorisées pour cette URI.
 
@@ -134,12 +146,13 @@ Lister les méthodes HTTP autorisées pour cette URI.
 
 * 200 : success
 
-================================
+---
 
-/expert/questions/last
-
+###/expert/questions/last
 
 ####GET
+
+================================
 
 Retourne la plus ancienne question sans réponse.
 
@@ -156,12 +169,14 @@ Retourne la plus ancienne question sans réponse.
 
 La question la plus ancienne sans réponse sous le format JSON.
 
-================================
+---
 
-/expert/questions/{id_question}
+###/expert/questions/{id_question}
 
 
 ####PUT
+
+================================
 
 Met à jour une question avec la réponses indiquée.
 La question est ciblée grâce à l’id_question passée en paramètre.
@@ -184,6 +199,8 @@ Question répondue avec succès ! id :{id_question}
 
 
 ####GET
+
+================================
 
 Obtient la question associée à l'identifiant indiqué.
 
