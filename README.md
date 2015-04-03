@@ -21,7 +21,6 @@ Interface 2037 - Ready for inquiry
 ###/client/questions/
 
 ####GET
-
 ================================
 
 Retourne les trente dernières questions posées.
@@ -50,7 +49,6 @@ La liste des trente dernières question posées en JSON.
 
 
 ####POST
-
 ================================
 
 Ajoute une question en base.
@@ -67,7 +65,6 @@ Ajoute une question en base.
 
 
 ####OPTIONS
-
 ================================
 
 Lister les méthodes HTTP autorisées pour cette URI.
@@ -81,7 +78,6 @@ Lister les méthodes HTTP autorisées pour cette URI.
 ###/client/questions/{id_question}
 
 ####GET
-
 ================================
 
 Obtient la question associée à l'identifiant indiqué.
@@ -106,7 +102,6 @@ La question essociée à l’identifiant sous le format JSON.
 
 
 ####DELETE
-
 ================================
 
 Supprime la question associée à l'identifiant indiqué.
@@ -123,7 +118,6 @@ Supprime la question associée à l'identifiant indiqué.
 
 
 ####OPTIONS
-
 ================================
 
 Lister les méthodes HTTP autorisées pour cette URI.
@@ -137,7 +131,6 @@ Lister les méthodes HTTP autorisées pour cette URI.
 ###/expert/questions
 
 ####OPTIONS
-
 ================================
 
 Lister les méthodes HTTP autorisées pour cette URI.
@@ -151,7 +144,6 @@ Lister les méthodes HTTP autorisées pour cette URI.
 ###/expert/questions/last
 
 ####GET
-
 ================================
 
 Retourne la plus ancienne question sans réponse.
@@ -175,7 +167,6 @@ La question la plus ancienne sans réponse sous le format JSON.
 
 
 ####PUT
-
 ================================
 
 Met à jour une question avec la réponses indiquée.
@@ -199,7 +190,6 @@ Question répondue avec succès ! id :{id_question}
 
 
 ####GET
-
 ================================
 
 Obtient la question associée à l'identifiant indiqué.
