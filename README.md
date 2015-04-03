@@ -25,10 +25,10 @@ Interface 2037 - Ready for inquiry
 Retourne les trente dernières questions posées.
 
 > Liste des codes retours HTTP possibles :
-200 : succès
+* 200 : succès
+
 
 > Paramètres
-
 
 | nom           | description                                                                                  | type      |
 | ------------- | -------------------------------------------------------------------------------------------- | --------- | 
@@ -50,6 +50,7 @@ Ajoute une question en base.
 > Liste des codes retours HTTP possibles:
 * 201 : created
 
+
 > Paramètres
 
 | nom	  | description            | type | 
@@ -70,10 +71,12 @@ Lister les méthodes HTTP autorisées pour cette URI.
 
 
 ###GET
+
 Obtient la question associée à l'identifiant indiqué.
 
 > Liste des codes retours HTTP possibles :
 * 200 : success
+
 
 > Paramètres
 
@@ -97,7 +100,8 @@ Supprime la question associée à l'identifiant indiqué.
 > Liste des codes retours HTTP possibles :
 * 204 : no content
 
-Paramètres
+
+> Paramètres
 
 | nom           | description                | type      |
 | ------------- | -------------------------- | --------- | 
@@ -114,7 +118,6 @@ Lister les méthodes HTTP autorisées pour cette URI.
 ================================
 
 /expert/questions
-
 
 ###OPTIONS
 
@@ -135,6 +138,7 @@ Retourne la plus ancienne question sans réponse.
 > Liste des codes retours HTTP possibles :
 * 200 : success
 * 303 : see other
+
 
 > Corps de la réponse
 
@@ -158,6 +162,7 @@ La question est ciblée grâce à l’id_question passée en paramètre.
 * 200 : success
 * 303 : see other
 
+
 > Paramètres
 
 | nom           | description                | type      |
@@ -176,6 +181,7 @@ Obtient la question associée à l'identifiant indiqué.
 
 > Liste des codes retours HTTP possibles :
 * 200 : success
+
 
 > Paramètres
 
