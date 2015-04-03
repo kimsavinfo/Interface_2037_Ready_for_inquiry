@@ -40,7 +40,7 @@ Retourne les trente dernières questions posées.
 
 > Corps de la réponse
 
-| élément       | corp                                     |
+| élément       | corps                                    |
 | ------------- | ---------------------------------------- |
 | Eléments json | les trente dernières questions posées    |
 | Eléments json | les questions contenant le label indiqué |   
@@ -94,7 +94,7 @@ Obtient la question associée à l'identifiant indiqué.
 
 > Corps de la réponse
 
-| élément       | corp                        |
+| élément       | corps                       |
 | ------------- | --------------------------- |
 | Eléments json | la question correspondante  |
 
@@ -155,7 +155,7 @@ Retourne la plus ancienne question sans réponse.
 
 > Corps de la réponse
 
-| élément       | corp                                    |
+| élément       | corps                                   |
 | ------------- | --------------------------------------- |
 | Eléments json | la plus ancienne question sans réponse  |
 
@@ -207,7 +207,7 @@ Obtient la question associée à l'identifiant indiqué.
 
 > Corps de la réponse
 
-| élément       | corp                        |
+| élément       | corps                      |
 | ------------- | --------------------------- |
 | Eléments json | la question correspondante  |
 
