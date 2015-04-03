@@ -25,8 +25,8 @@ Interface 2037 - Ready for inquiry
 Retourne les trente dernières questions posées.
 
 > Liste des codes retours HTTP possibles :
-* 200 : succès
 
+* 200 : succès
 
 > Paramètres
 
@@ -48,8 +48,8 @@ La liste des trente dernières question posées en JSON.
 Ajoute une question en base.
 
 > Liste des codes retours HTTP possibles:
-* 201 : created
 
+* 201 : created
 
 > Paramètres
 
@@ -69,14 +69,13 @@ Lister les méthodes HTTP autorisées pour cette URI.
 
 /client/questions/{id_question}
 
-
 ###GET
 
 Obtient la question associée à l'identifiant indiqué.
 
 > Liste des codes retours HTTP possibles :
-* 200 : success
 
+* 200 : success
 
 > Paramètres
 
@@ -98,8 +97,8 @@ La question essociée à l’identifiant sous le format JSON.
 Supprime la question associée à l'identifiant indiqué.
 
 > Liste des codes retours HTTP possibles :
-* 204 : no content
 
+* 204 : no content
 
 > Paramètres
 
@@ -136,9 +135,9 @@ Lister les méthodes HTTP autorisées pour cette URI.
 Retourne la plus ancienne question sans réponse.
 
 > Liste des codes retours HTTP possibles :
+
 * 200 : success
 * 303 : see other
-
 
 > Corps de la réponse
 
@@ -159,9 +158,9 @@ Met à jour une question avec la réponses indiquée.
 La question est ciblée grâce à l’id_question passée en paramètre.
 
 > Liste des codes retours HTTP possibles :
+
 * 200 : success
 * 303 : see other
-
 
 > Paramètres
 
@@ -169,7 +168,7 @@ La question est ciblée grâce à l’id_question passée en paramètre.
 | ------------- | -------------------------- | --------- | 
 | id_question   | identifiant de la question | path      |
 
-Corps de la réponse
+> Corps de la réponse
 
 Log
 Question répondue avec succès ! id :{id_question}
@@ -180,8 +179,8 @@ Question répondue avec succès ! id :{id_question}
 Obtient la question associée à l'identifiant indiqué.
 
 > Liste des codes retours HTTP possibles :
-* 200 : success
 
+* 200 : success
 
 > Paramètres
 
