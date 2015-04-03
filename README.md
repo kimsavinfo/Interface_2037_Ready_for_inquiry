@@ -28,6 +28,8 @@ Liste des codes retours HTTP possibles :
 200 : succès
 
 Paramètres
+
+
 | nom           | description                                                                                  | type      |
 | ------------- | -------------------------------------------------------------------------------------------- | --------- | 
 | label         | paramètre optionnel, indique le contenu de la question que l'utilisateur souhaite rechercher |     valeur|      
