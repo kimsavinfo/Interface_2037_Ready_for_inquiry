@@ -28,7 +28,7 @@ Retourne les trente dernières questions posées.
 
 * 200 : succès
 
-*    *    *
+- - -
 
 > Paramètres
 
