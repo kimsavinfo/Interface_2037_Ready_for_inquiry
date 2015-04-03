@@ -24,7 +24,7 @@ Interface 2037 - Ready for inquiry
 
 Retourne les trente dernières questions posées.
 
-Liste des codes retours HTTP possibles :
+> Liste des codes retours HTTP possibles :
 200 : succès
 
 > Paramètres
@@ -42,12 +42,13 @@ Liste des codes retours HTTP possibles :
 
 La liste des trente dernières question posées en JSON.
 
+
 ###POST
 
 Ajoute une question en base.
 
-Liste des codes retours HTTP possibles:
-201 : created
+> Liste des codes retours HTTP possibles:
+* 201 : created
 
 > Paramètres
 
@@ -55,22 +56,24 @@ Liste des codes retours HTTP possibles:
 | ----- | ---------------------- | ---- |
 | label | contenu de la question | path |
 
+
 ###OPTIONS
 
 Lister les méthodes HTTP autorisées pour cette URI.
 
-Liste des codes retours HTTP possibles:
-200 : success
+> Liste des codes retours HTTP possibles:
+* 200 : success
 
 ================================
 
 /client/questions/{id_question}
 
+
 ###GET
 Obtient la question associée à l'identifiant indiqué.
 
-Liste des codes retours HTTP possibles :
-200 : success
+> Liste des codes retours HTTP possibles :
+* 200 : success
 
 > Paramètres
 
@@ -86,12 +89,13 @@ Liste des codes retours HTTP possibles :
 
 La question essociée à l’identifiant sous le format JSON.
 
+
 ###DELETE
 
 Supprime la question associée à l'identifiant indiqué.
 
-Liste des codes retours HTTP possibles :
-204 : no content
+> Liste des codes retours HTTP possibles :
+* 204 : no content
 
 Paramètres
 
@@ -99,35 +103,38 @@ Paramètres
 | ------------- | -------------------------- | --------- | 
 | id_question   | identifiant de la question | path      |
 
+
 ###OPTIONS
 
 Lister les méthodes HTTP autorisées pour cette URI.
 
-Liste des codes retours HTTP possibles:
-200 : OK
+> Liste des codes retours HTTP possibles:
+* 200 : OK
 
 ================================
 
 /expert/questions
 
+
 ###OPTIONS
 
 Lister les méthodes HTTP autorisées pour cette URI.
 
-Liste des codes retours HTTP possibles:
-200 : success
+> Liste des codes retours HTTP possibles:
+* 200 : success
 
 ================================
 
 /expert/questions/last
 
+
 ####GET
 
 Retourne la plus ancienne question sans réponse.
 
-Liste des codes retours HTTP possibles :
-200 : success
-303 : see other
+> Liste des codes retours HTTP possibles :
+* 200 : success
+* 303 : see other
 
 > Corps de la réponse
 
@@ -141,14 +148,15 @@ La question la plus ancienne sans réponse sous le format JSON.
 
 /expert/questions/{id_question}
 
+
 ###PUT
 
 Met à jour une question avec la réponses indiquée.
 La question est ciblée grâce à l’id_question passée en paramètre.
 
-Liste des codes retours HTTP possibles :
-200 : success
-303 : see other
+> Liste des codes retours HTTP possibles :
+* 200 : success
+* 303 : see other
 
 > Paramètres
 
@@ -161,20 +169,19 @@ Corps de la réponse
 Log
 Question répondue avec succès ! id :{id_question}
 
+
 ###GET
 
 Obtient la question associée à l'identifiant indiqué.
 
-Liste des codes retours HTTP possibles :
-200 : success
+> Liste des codes retours HTTP possibles :
+* 200 : success
 
 > Paramètres
 
 | nom           | description                | type      |
 | ------------- | -------------------------- | --------- | 
 | id_question   | identifiant de la question | path      | 
-
-
 
 
 > Corps de la réponse
