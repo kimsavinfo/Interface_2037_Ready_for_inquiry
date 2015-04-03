@@ -16,3 +16,20 @@ Interface 2037 - Ready for inquiry
 ### La documentation de l'API est acccesible dans le fichier
 ![docs/doc_API.pdf](docs/doc_API.pdf)
 
+================================
+
+/client/questions/
+
+###GET
+
+Retourne les trente dernières questions posées.
+
+Liste des codes retours HTTP possibles :
+200 : succès
+
+Paramètres
+| nom           | description   | type      | défaut   |
+| ------------- |:-------------:| ---------:| --------:|
+| label         | paramètre optionnel, indique le contenu de la question que l'utilisateur souhaite rechercher |     valeur|          |
+| ligne 2       | 2             |     valeur|          |
+| ligne 3       | 3             |     valeur|          |
