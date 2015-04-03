@@ -18,7 +18,7 @@ Interface 2037 - Ready for inquiry
 
 ================================
 
-/client/questions/
+###/client/questions/
 
 ####GET
 
@@ -27,6 +27,8 @@ Retourne les trente dernières questions posées.
 > Liste des codes retours HTTP possibles :
 
 * 200 : succès
+
+*    *    *
 
 > Paramètres
 
