@@ -22,7 +22,6 @@ Interface 2037 - Ready for inquiry
 
 #### GET
 ==
-
 Retourne les trente dernières questions posées.
 
 > Liste des codes retours HTTP possibles :
