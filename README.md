@@ -20,7 +20,7 @@ Interface 2037 - Ready for inquiry
 
 /client/questions/
 
-###GET
+####GET
 
 Retourne les trente dernières questions posées.
 
@@ -58,18 +58,19 @@ Ajoute une question en base.
 | label | contenu de la question | path |
 
 
-###OPTIONS
+####OPTIONS
 
 Lister les méthodes HTTP autorisées pour cette URI.
 
 > Liste des codes retours HTTP possibles:
+
 * 200 : success
 
 ================================
 
 /client/questions/{id_question}
 
-###GET
+####GET
 
 Obtient la question associée à l'identifiant indiqué.
 
@@ -92,7 +93,7 @@ Obtient la question associée à l'identifiant indiqué.
 La question essociée à l’identifiant sous le format JSON.
 
 
-###DELETE
+####DELETE
 
 Supprime la question associée à l'identifiant indiqué.
 
@@ -107,22 +108,24 @@ Supprime la question associée à l'identifiant indiqué.
 | id_question   | identifiant de la question | path      |
 
 
-###OPTIONS
+####OPTIONS
 
 Lister les méthodes HTTP autorisées pour cette URI.
 
 > Liste des codes retours HTTP possibles:
+
 * 200 : OK
 
 ================================
 
 /expert/questions
 
-###OPTIONS
+####OPTIONS
 
 Lister les méthodes HTTP autorisées pour cette URI.
 
 > Liste des codes retours HTTP possibles:
+
 * 200 : success
 
 ================================
@@ -152,7 +155,7 @@ La question la plus ancienne sans réponse sous le format JSON.
 /expert/questions/{id_question}
 
 
-###PUT
+####PUT
 
 Met à jour une question avec la réponses indiquée.
 La question est ciblée grâce à l’id_question passée en paramètre.
@@ -174,7 +177,7 @@ Log
 Question répondue avec succès ! id :{id_question}
 
 
-###GET
+####GET
 
 Obtient la question associée à l'identifiant indiqué.
 
