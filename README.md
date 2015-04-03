@@ -20,8 +20,8 @@ Interface 2037 - Ready for inquiry
 
 ### /client/questions/
 
-GET
-==
+### GET #
+
 Retourne les trente dernières questions posées.
 
 > Liste des codes retours HTTP possibles :
@@ -47,8 +47,7 @@ Retourne les trente dernières questions posées.
 La liste des trente dernières question posées en JSON.
 
 
-####POST
-================================
+### POST #
 
 Ajoute une question en base.
 
@@ -63,8 +62,7 @@ Ajoute une question en base.
 | label | contenu de la question | path |
 
 
-####OPTIONS
-================================
+### OPTIONS #
 
 Lister les méthodes HTTP autorisées pour cette URI.
 
@@ -76,8 +74,7 @@ Lister les méthodes HTTP autorisées pour cette URI.
 
 ###/client/questions/{id_question}
 
-####GET
-================================
+### GET #
 
 Obtient la question associée à l'identifiant indiqué.
 
@@ -100,8 +97,7 @@ Obtient la question associée à l'identifiant indiqué.
 La question essociée à l’identifiant sous le format JSON.
 
 
-####DELETE
-================================
+### DELETE #
 
 Supprime la question associée à l'identifiant indiqué.
 
@@ -116,8 +112,7 @@ Supprime la question associée à l'identifiant indiqué.
 | id_question   | identifiant de la question | path      |
 
 
-####OPTIONS
-================================
+### OPTIONS #
 
 Lister les méthodes HTTP autorisées pour cette URI.
 
@@ -129,8 +124,7 @@ Lister les méthodes HTTP autorisées pour cette URI.
 
 ###/expert/questions
 
-####OPTIONS
-================================
+### OPTIONS #
 
 Lister les méthodes HTTP autorisées pour cette URI.
 
@@ -142,8 +136,7 @@ Lister les méthodes HTTP autorisées pour cette URI.
 
 ###/expert/questions/last
 
-####GET
-================================
+### GET #
 
 Retourne la plus ancienne question sans réponse.
 
@@ -165,8 +158,7 @@ La question la plus ancienne sans réponse sous le format JSON.
 ###/expert/questions/{id_question}
 
 
-####PUT
-================================
+### PUT #
 
 Met à jour une question avec la réponses indiquée.
 La question est ciblée grâce à l’id_question passée en paramètre.
@@ -188,8 +180,7 @@ Log
 Question répondue avec succès ! id :{id_question}
 
 
-####GET
-================================
+### GET #
 
 Obtient la question associée à l'identifiant indiqué.
 
