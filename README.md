@@ -20,7 +20,7 @@ Interface 2037 - Ready for inquiry
 
 ### /client/questions/
 
-#### GET
+### GET
 ==
 Retourne les trente dernières questions posées.
 
