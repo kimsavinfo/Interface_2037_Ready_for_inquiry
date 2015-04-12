@@ -17,6 +17,7 @@
     "unit.js": "^1.1.2"
   },
   "scripts": {
-    "start": "supervisor app.js"
+    "start": "supervisor app.js",
+    "test": "mocha tests --recursive"
   }
 }

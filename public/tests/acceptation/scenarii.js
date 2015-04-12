@@ -2,57 +2,23 @@ var rootDirectory = __dirname + '/../..',
 	test = require('unit.js'),
 	mongoose = require('mongoose'),
 	json = JSON.parse,
-	config = require(rootDirectory+'/config/config'),
-	schemaQuestion = require(rootDirectory+'/schemas/questions'),
-	modelQuestion = require(rootDirectory+'/models/questions'),
-	libString = require(rootDirectory+'/models/libString');
+	config = require(rootDirectory+'/config/config');
 
-	var ModelQuestionDb = mongoose.model('Question');
-		modelQuestion.host = config.dbTest.host;
-		modelQuestion.model = ModelQuestionDb;
-
-	var server = require('../../app');
+	var server = "http://localhost:5000";//require('../../app');
 	var request = require('supertest');
 
 describe('=== Scenarii ===', function(){
 
-	var questionScenarii = new ModelQuestionDb({label: 'Question pour test scenarii'});
-
-	before(function () {
-		server.listen(5002,function(){
-			console.log('Serveur de tests d acceptation Scenarii lance');
-		});
-	});
-
-	it("Aucune question pour le systeme expert", function(done)
-	{
-		console.log('Etant donne qu il n existe aucune question');
-		console.log('Quand le systeme expert demande la prochaine question au serveur');
-		console.log('Alors le serveur indique qu il n existe pas de question');
-		console.log('Et le systeme expert se met veille avant de redemander une question');
-
-		modelQuestion.deleteAll(function(){
-			console.log("- Il n existe aucune question en base");
-
-			request(server)
-				.get('/expert/questions/last')
-				.expect(204)
-				.end(function (error, res) {
-					if(error) {
-						throw error;
-					}
-				done();
-			});
-		});
-	});
+	var params = {};
+	var questionScenarii = {};
 
 	it("L usager pose une question au serveur et sait ou elle sera disponible", function(done)
 	{
-		console.log('Quand l usager pose une question au serveur');
+		console.log('\n\nQuand l usager pose une question au serveur');
 		console.log('Alors le serveur indique qu il a enregistre la question');
 		console.log('Et il permet a l usager de localiser la reponse lorsqu elle sera disponible');
 
-		var params = {
+		params = {
 			label: "question-test"
 		};
 
@@ -80,7 +46,7 @@ describe('=== Scenarii ===', function(){
 
 	it("Le systeme expert propose la question en attente", function(done)
 	{
-		console.log('Etant donne qu il existe une question en attente de reponse');
+		console.log('\n\nEtant donne qu il existe une question en attente de reponse');
 		console.log('Quand le systeme expert demande la prochaine question au serveur'); 
 		console.log('Alors il recupere la question en attente');
 		console.log('Et la question suivante devient la question en attente');
@@ -128,7 +94,7 @@ describe('=== Scenarii ===', function(){
 
 	it("L usager consulte la question mais elle n a pas encore de reponse", function(done)
 	{
-		console.log('Etant donne qu un usager a pose une question');
+		console.log('\n\nEtant donne qu un usager a pose une question');
 		console.log('Et aucun systeme expert n a pas encore traité la question');
 		console.log('Quand l usager demande a consulter la reponse');
 		console.log('Alors le serveur indique que la reponse n est pas encore disponible');
@@ -152,7 +118,7 @@ describe('=== Scenarii ===', function(){
 
 	it("Le systeme expert fournit une réponse", function(done)
 	{
-		console.log('Etant donne que le systeme expert a recupere une question en attente');
+		console.log('\n\nEtant donne que le systeme expert a recupere une question en attente');
 		console.log('Et qu il a trouve une reponse');
 		console.log('Quand il fournit la reponse au serveur');
 		console.log('Alors le serveur indique qu il a enregistre la reponse a la question');
@@ -181,7 +147,7 @@ describe('=== Scenarii ===', function(){
 
 	it("L usager consulte la question et le systeme a bien respondu", function(done)
 	{
-		console.log('Etant donne qu un usager a pose une question');
+		console.log('\n\nEtant donne qu un usager a pose une question');
 		console.log('Et un systeme expert a traite la question');
 		console.log('Quand l usager demande a consulter la reponse');
 		console.log('Alors le serveur affiche la reponse du systeme expert');
@@ -206,7 +172,7 @@ describe('=== Scenarii ===', function(){
 
 	it("Le systeme expert indique qu il ne connait pas la response", function(done)
 	{
-		console.log('Etant donne que le systeme expert a recupere une question en attente');
+		console.log('\n\nEtant donne que le systeme expert a recupere une question en attente');
 		console.log('Et qu il a trouve une reponse');
 		console.log('Quand il notifie le serveur de son echec');
 		console.log('Alors le serveur enregistre que cette question n a pas de reponse connue.');
@@ -244,11 +210,6 @@ describe('=== Scenarii ===', function(){
 				done();
 			});
 		});
-	});
-
-
-	after(function () {
-		server.close();
 	});
 
 });
