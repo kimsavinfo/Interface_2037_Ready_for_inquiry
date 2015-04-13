@@ -77,6 +77,6 @@ module.exports = function(app, host){
 	})
 
 	.get('/expert', function(req, res){
-		res.redirect('/expert/questions/last');
+		res.redirect('/expert/questions');
 	});
 };
