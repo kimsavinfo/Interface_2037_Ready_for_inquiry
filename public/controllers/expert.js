@@ -6,7 +6,7 @@ module.exports = function(app){
 
 
 	app.get('/expert/questions/last', function(req, res){
-		request(appPath+'/expert/questions/last', function (error, response, body) {
+		request(appPath+'/expert/questions?sort=date&limit=1', function (error, response, body) {
 		  	if (!error){
 		  		if(response.statusCode == 200) {
 			  		var data;

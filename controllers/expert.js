@@ -20,14 +20,18 @@ module.exports = function(app, host){
 		res.end();
 	})
 
-	.get('/expert/questions/last', function(req, res){
-		modelQuestion.getLastQuestion(function(question){
-			if(question){
-				res.redirect(303, '/expert/questions/' + question._id);
-			} else {
-				res.status(204).send();
-			}
-		});
+	.get('/expert/questions', function(req, res){
+		if(req.query.sort == 'date' && req.query.limit == 1){
+			modelQuestion.getLastQuestion(function(question){
+				if(question){
+					res.redirect(303, '/expert/questions/' + question._id);
+				} else {
+					res.status(204).send();
+				}
+			});
+		}else{
+			res.status(204).send();
+		}
 	})
 
 	.options('/expert/questions/:id', function(req, res){
