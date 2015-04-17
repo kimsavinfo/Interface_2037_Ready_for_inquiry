@@ -4,6 +4,15 @@
 Interface 2037 - Ready for inquiry 
 ================================
 
+Vous avez à disposition :
+- le dossier "/reseau" : les fichiers de configuration du SQUID et des VMs, ainsi que les scripts de lancement du service.
+- le dossier "/docs" : le sujet et la documentation du service Web.
+- le dossier "/docs/presentation" : support de la présenation et le rapport.
+
+
+Documentation du service Web
+================================
+
 # Les services suivants sont disponibles :
 * /client/questions/
 * /client/questions/{id_question}
