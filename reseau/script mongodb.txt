@@ -1,0 +1,4 @@
+#script du lancement de la base données mongodb
+#!/bin/bash
+cd /home/julien/Téléchargements/mongodb-linux-x86_64-2.6.7/bin #déplacement dans le dossier de la base de données
+./mongod --dbpath db/ --smallfiles #lancement de la base de données 

@@ -1,0 +1,3 @@
+#script de lancement du serveur de question
+cd /home/julien/Documents/Interface_2037_Ready_for_inquiry #Deplacement dans e dossier de l'application insterface
+npm start #on lance le serveur de question
