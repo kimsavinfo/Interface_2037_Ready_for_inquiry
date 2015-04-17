@@ -33,6 +33,10 @@ module.exports = function(app){
 			request(options, function (error, response, body) {
 				if (!error && response.statusCode == 200) {
 					var data = JSON.parse(body);
+					if (!res.getHeader('Cache-Control')) 
+					{
+						res.setHeader('Cache-Control', 'public, max-age=31557600000');
+					}
 					res.render(rootDirectory + '/views/client/questions.ejs', data );
 				}
 			});
@@ -43,6 +47,10 @@ module.exports = function(app){
 			request(appPath+'/client/questions', function (error, response, body) {
 				if (!error && response.statusCode == 200) {
 					var data = JSON.parse(body);
+					if (!res.getHeader('Cache-Control')) 
+					{
+						res.setHeader('Cache-Control', 'public, max-age=31557600000');
+					}
 					res.render(rootDirectory + '/views/client/questions.ejs', data );
 				}
 			});
@@ -70,6 +78,10 @@ module.exports = function(app){
 		request(appPath+'/client/questions/'+id, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var data = JSON.parse(body);
+				if (!res.getHeader('Cache-Control')) 
+				{
+					res.setHeader('Cache-Control', 'public, max-age=31557600000');
+				}
 				res.render(rootDirectory + '/views/client/question.ejs', data[0]);
 			}
 		});

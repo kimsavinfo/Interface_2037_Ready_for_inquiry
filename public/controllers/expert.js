@@ -16,6 +16,10 @@ module.exports = function(app){
 			  			data = JSON.parse(body);
 			  		}
 
+			  		if (!res.getHeader('Cache-Control')) 
+					{
+						res.setHeader('Cache-Control', 'public, max-age=31557600000');
+					}
 			  		res.render(rootDirectory+'/views/expert/answer.ejs', data[0]);
 			  	} else if (response.statusCode == 204){
 			  		res.render(rootDirectory+'/views/expert/noQuestion.ejs');
@@ -49,6 +53,12 @@ module.exports = function(app){
 		request(appPath+'/expert/questions/'+id, function (error, response, body) {
 		  	if (!error && response.statusCode == 200) {
 		  		var data = JSON.parse(body);
+		  		
+		  		if (!res.getHeader('Cache-Control')) 
+				{
+					res.setHeader('Cache-Control', 'public, max-age=31557600000');
+				}
+
 		  		if(data.answer != ''){
 					res.render(rootDirectory + '/views/expert/answer.ejs', data[0]);
 				} else {
